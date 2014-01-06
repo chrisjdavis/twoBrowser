@@ -37,7 +37,6 @@
     self.window.fullScreenButtonRightMargin = 7.0;
     self.window.centerFullScreenButton = YES;
     self.window.titleBarHeight = 40.0;
-    
     self.titleView.frame = self.window.titleBarView.bounds;
     self.titleView.autoresizingMask = NSViewWidthSizable | NSViewHeightSizable;
     [self.window.titleBarView addSubview:self.titleView];
@@ -105,18 +104,32 @@
 
 #pragma mark -- webKit Specific
 
+- (void)webViewDidStartLoad:(NSNotification *)notification {
+    [self.progr startAnimation:[notification object]];
+}
+
 - (void)webViewFinishedLoading:(NSNotification *)notification {
     [self.progr stopAnimation:[notification object]];
 }
 
 - (IBAction)connectURL:(id)sender {
+    NSString* urlString = [sender stringValue];
+    NSURL* rUrl = [NSURL URLWithString:urlString];
+
+    if(!rUrl.scheme) {
+        NSString* modifiedURLString = [NSString stringWithFormat:@"http://%@", urlString];
+        rUrl = [NSURL URLWithString:modifiedURLString];
+    }
+    
     NSString* kMobileSafariUserAgent = @"Mozilla/5.0 (iPhone; U; CPU iPhone OS 4_0 like Mac OS X; en-us) AppleWebKit/532.9 (KHTML, like Gecko) Version/4.0.5 Mobile/8A293 Safari/6531.22.7";
-    NSMutableURLRequest *request = [NSMutableURLRequest requestWithURL:[NSURL URLWithString:[sender stringValue]]];
+    NSMutableURLRequest *request = [NSMutableURLRequest requestWithURL:rUrl];
     [request setValue:kMobileSafariUserAgent forHTTPHeaderField:@"User-Agent"];
+    
     [self.progr startAnimation:sender];
     [self.url close];
     [[mobileView mainFrame] loadRequest:request];
-    [[desktopView mainFrame] loadRequest:[NSURLRequest requestWithURL:[NSURL URLWithString:[sender stringValue]]]];
+    [[desktopView mainFrame] loadRequest:[NSMutableURLRequest requestWithURL:rUrl]];
+    [textField resignFirstResponder];
 }
 
 #pragma mark -- Custom Window
