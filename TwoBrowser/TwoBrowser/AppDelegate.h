@@ -23,6 +23,8 @@
 @property (weak) IBOutlet NSProgressIndicator *progr;
 @property (weak) IBOutlet NSSegmentedControl *toggler;
 @property (weak) IBOutlet NSPopUpButton *breakpoints;
+@property (assign) IBOutlet NSPopover *url;
+@property (weak) IBOutlet NSButton *urlButton;
 
 @property (assign) IBOutlet INAppStoreWindow *window;
 @property (assign) IBOutlet NSButton *centerFullScreen;
@@ -37,5 +39,6 @@
 @property (nonatomic, retain) NSMutableArray *windowControllers;
 
 - (IBAction)toggleControl:(id)sender;
+- (IBAction)showURL:(id)sender;
 
 @end

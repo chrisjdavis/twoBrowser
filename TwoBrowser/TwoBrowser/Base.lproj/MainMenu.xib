@@ -23,6 +23,8 @@
                 <outlet property="theSplits" destination="v7F-rw-MIY" id="0kQ-9b-vd3"/>
                 <outlet property="titleView" destination="ofh-Lc-HLf" id="3nh-MM-gt9"/>
                 <outlet property="toggler" destination="sWo-61-v9q" id="5e0-Fu-dNW"/>
+                <outlet property="url" destination="AYf-Xr-M3c" id="5H9-Mu-xRu"/>
+                <outlet property="urlButton" destination="2uN-Fr-K83" id="VqX-WK-ejW"/>
                 <outlet property="window" destination="QvC-M9-y7g" id="gIp-Ho-8D9"/>
             </connections>
         </customObject>
@@ -410,20 +412,8 @@
             <rect key="frame" x="0.0" y="0.0" width="924" height="48"/>
             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
             <subviews>
-                <textField focusRingType="exterior" verticalHuggingPriority="750" id="yNa-ZG-X3f">
-                    <rect key="frame" x="390" y="16" width="514" height="22"/>
-                    <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMaxX="YES" flexibleMinY="YES"/>
-                    <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" selectable="YES" editable="YES" sendsActionOnEndEditing="YES" state="on" borderStyle="bezel" focusRingType="exterior" usesSingleLineMode="YES" id="uNm-Oh-uXG">
-                        <font key="font" metaFont="system"/>
-                        <color key="textColor" name="textColor" catalog="System" colorSpace="catalog"/>
-                        <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
-                    </textFieldCell>
-                    <connections>
-                        <action selector="connectURL:" target="Voe-Tx-rLC" id="gBv-cp-Yld"/>
-                    </connections>
-                </textField>
                 <progressIndicator horizontalHuggingPriority="750" verticalHuggingPriority="750" maxValue="100" displayedWhenStopped="NO" bezeled="NO" indeterminate="YES" controlSize="small" style="spinning" id="ROg-wt-Hte">
-                    <rect key="frame" x="366" y="19" width="16" height="16"/>
+                    <rect key="frame" x="378" y="19" width="16" height="16"/>
                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                 </progressIndicator>
                 <segmentedControl verticalHuggingPriority="750" id="sWo-61-v9q">
@@ -481,10 +471,59 @@
                         <action selector="chooseBreakpoint:" target="Voe-Tx-rLC" id="2PF-5n-C8D"/>
                     </connections>
                 </popUpButton>
+                <button verticalHuggingPriority="750" id="2uN-Fr-K83">
+                    <rect key="frame" x="344" y="15" width="26" height="25"/>
+                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                    <buttonCell key="cell" type="roundTextured" bezelStyle="texturedRounded" image="bottom-files-remote-Template" imagePosition="only" alignment="center" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="Y4c-4j-yOY">
+                        <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
+                        <font key="font" metaFont="system"/>
+                    </buttonCell>
+                    <connections>
+                        <action selector="showURL:" target="Voe-Tx-rLC" id="dqg-uf-llf"/>
+                    </connections>
+                </button>
+                <button verticalHuggingPriority="750" id="nn6-Kd-3Rb">
+                    <rect key="frame" x="309" y="15" width="27" height="25"/>
+                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                    <buttonCell key="cell" type="roundTextured" bezelStyle="texturedRounded" image="NSBookmarksTemplate" imagePosition="only" alignment="center" borderStyle="border" inset="2" id="oQm-uI-AoY">
+                        <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
+                        <font key="font" metaFont="system"/>
+                    </buttonCell>
+                </button>
+            </subviews>
+        </customView>
+        <viewController id="kIA-JH-7ju" userLabel="Popover View Controller">
+            <connections>
+                <outlet property="view" destination="M9t-YB-1HC" id="xZH-HK-oSt"/>
+            </connections>
+        </viewController>
+        <popover id="AYf-Xr-M3c">
+            <connections>
+                <outlet property="contentViewController" destination="kIA-JH-7ju" id="L3T-GR-aiW"/>
+            </connections>
+        </popover>
+        <customView id="M9t-YB-1HC">
+            <rect key="frame" x="0.0" y="0.0" width="530" height="44"/>
+            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+            <subviews>
+                <textField focusRingType="exterior" verticalHuggingPriority="750" id="yNa-ZG-X3f">
+                    <rect key="frame" x="8" y="11" width="514" height="22"/>
+                    <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMaxX="YES" flexibleMinY="YES"/>
+                    <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" selectable="YES" editable="YES" sendsActionOnEndEditing="YES" state="on" borderStyle="bezel" focusRingType="exterior" usesSingleLineMode="YES" id="uNm-Oh-uXG">
+                        <font key="font" metaFont="system"/>
+                        <color key="textColor" name="textColor" catalog="System" colorSpace="catalog"/>
+                        <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
+                    </textFieldCell>
+                    <connections>
+                        <action selector="connectURL:" target="Voe-Tx-rLC" id="gBv-cp-Yld"/>
+                    </connections>
+                </textField>
             </subviews>
         </customView>
     </objects>
     <resources>
+        <image name="NSBookmarksTemplate" width="17" height="12"/>
+        <image name="bottom-files-remote-Template" width="12" height="12"/>
         <image name="bottombar-browser-double-Template" width="13" height="10"/>
         <image name="bottombar-browser-single-Template" width="13" height="10"/>
         <image name="ipreview-ipad-large" width="12" height="16"/>

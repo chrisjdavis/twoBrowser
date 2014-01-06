@@ -33,6 +33,7 @@
 		0DDF552A1878E1E4005994BD /* AppKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0DA5CDE518777A350084581D /* AppKit.framework */; };
 		0DDF552B1878E1ED005994BD /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0DA5CDE718777A350084581D /* Foundation.framework */; };
 		0DEE5477187B0E7D000568A2 /* NSSplitView+Animation.m in Sources */ = {isa = PBXBuildFile; fileRef = 0DEE5476187B0E7D000568A2 /* NSSplitView+Animation.m */; };
+		0DEE5479187B20EC000568A2 /* bottom-files-remote-Template.pdf in Resources */ = {isa = PBXBuildFile; fileRef = 0DEE5478187B20EC000568A2 /* bottom-files-remote-Template.pdf */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -83,6 +84,7 @@
 		0DDEBDD7187AFBEB00787F2D /* Quartz.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Quartz.framework; path = System/Library/Frameworks/Quartz.framework; sourceTree = SDKROOT; };
 		0DEE5475187B0E7D000568A2 /* NSSplitView+Animation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSSplitView+Animation.h"; sourceTree = "<group>"; };
 		0DEE5476187B0E7D000568A2 /* NSSplitView+Animation.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSSplitView+Animation.m"; sourceTree = "<group>"; };
+		0DEE5478187B20EC000568A2 /* bottom-files-remote-Template.pdf */ = {isa = PBXFileReference; lastKnownFileType = image.pdf; path = "bottom-files-remote-Template.pdf"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -114,6 +116,7 @@
 		0D189C5F1879B0C500FD6758 /* image assets */ = {
 			isa = PBXGroup;
 			children = (
+				0DEE5478187B20EC000568A2 /* bottom-files-remote-Template.pdf */,
 				0D189C64187A06FD00FD6758 /* ipreview-ipad-large.pdf */,
 				0D189C65187A06FD00FD6758 /* ipreview-iphone-large.pdf */,
 				0D189C60187A009B00FD6758 /* pathbar-edge.png */,
@@ -316,6 +319,7 @@
 				0DA5CDFB18777A350084581D /* Images.xcassets in Resources */,
 				0D189C5E1879B0BD00FD6758 /* bottombar-browser-single-Template.pdf in Resources */,
 				0D189C63187A009B00FD6758 /* pathbar-edge@2x.png in Resources */,
+				0DEE5479187B20EC000568A2 /* bottom-files-remote-Template.pdf in Resources */,
 				0DA5CDF318777A350084581D /* Credits.rtf in Resources */,
 				0D189C67187A06FD00FD6758 /* ipreview-iphone-large.pdf in Resources */,
 				0D189C66187A06FD00FD6758 /* ipreview-ipad-large.pdf in Resources */,

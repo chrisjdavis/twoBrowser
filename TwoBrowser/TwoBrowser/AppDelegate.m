@@ -23,6 +23,8 @@
 @synthesize theSplits = theSplits_;
 @synthesize toggler;
 @synthesize breakpoints;
+@synthesize url;
+@synthesize urlButton;
 
 - (void) awakeFromNib {
     [theSplits_ setAutosaveName:@"2splitView"];
@@ -112,6 +114,7 @@
     NSMutableURLRequest *request = [NSMutableURLRequest requestWithURL:[NSURL URLWithString:[sender stringValue]]];
     [request setValue:kMobileSafariUserAgent forHTTPHeaderField:@"User-Agent"];
     [self.progr startAnimation:sender];
+    [self.url close];
     [[mobileView mainFrame] loadRequest:request];
     [[desktopView mainFrame] loadRequest:[NSURLRequest requestWithURL:[NSURL URLWithString:[sender stringValue]]]];
 }
@@ -146,6 +149,21 @@
     button.pressedImage = [NSImage imageNamed:@"zoom-pd-color.tiff"];
     button.rolloverImage = [NSImage imageNamed:@"zoom-rollover-color.tiff"];
     self.window.zoomButton = button;
+}
+
+#pragma mark -- URLPopOver
+
+- (BOOL)buttonIsPressed
+{
+    return self.urlButton.intValue == 1;
+}
+
+- (IBAction)showURL:(id)sender {
+    if (self.buttonIsPressed) {
+        [[self url] showRelativeToRect:[sender bounds] ofView:sender preferredEdge:NSMaxYEdge];
+    } else {
+        [self.url close];
+    }
 }
 
 @end
