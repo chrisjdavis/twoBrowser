@@ -457,9 +457,9 @@
                 <popUpButton verticalHuggingPriority="750" id="ddC-7P-C33">
                     <rect key="frame" x="173" y="15" width="128" height="25"/>
                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
-                    <popUpButtonCell key="cell" type="roundTextured" title="Breakpoints" bezelStyle="texturedRounded" alignment="center" lineBreakMode="truncatingTail" state="on" borderStyle="border" imageScaling="proportionallyDown" inset="2" pullsDown="YES" selectedItem="6tz-xg-2ci" id="m2S-GH-qvn">
+                    <popUpButtonCell key="cell" type="roundTextured" title="Breakpoints" bezelStyle="texturedRounded" alignment="center" lineBreakMode="truncatingTail" state="on" borderStyle="border" imageScaling="proportionallyDown" inset="2" pullsDown="YES" id="m2S-GH-qvn">
                         <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
-                        <font key="font" metaFont="system"/>
+                        <font key="font" metaFont="menu"/>
                         <menu key="menu" title="OtherViews" id="iYa-c0-Aqy">
                             <items>
                                 <menuItem title="Breakpoints" state="on" hidden="YES" id="9gt-ZU-u2f"/>

@@ -24,6 +24,10 @@
 @synthesize toggler;
 @synthesize breakpoints;
 
+- (void) awakeFromNib {
+    [theSplits_ setAutosaveName:@"2splitView"];
+}
+
 - (void)applicationDidFinishLaunching:(NSNotification *)aNotification
 {
     self.windowControllers = [NSMutableArray array];
@@ -45,27 +49,27 @@
     switch (breakpoints.indexOfSelectedItem) {
         case 1:
             [mobileView setHidden:NO];
-            [theSplits_ setPosition:320 ofDividerAtIndex:0];
+            [theSplits_ animateView:0 toDimension:320];
             break;
         case 2:
             [mobileView setHidden:NO];
-            [theSplits_ setPosition:360 ofDividerAtIndex:0];
+            [theSplits_ animateView:0 toDimension:360];
             break;
         case 3:
             [mobileView setHidden:NO];
-            [theSplits_ setPosition:768 ofDividerAtIndex:0];
+            [theSplits_ animateView:0 toDimension:768];
             break;
         case 4:
             [mobileView setHidden:NO];
-            [theSplits_ setPosition:800 ofDividerAtIndex:0];
+            [theSplits_ animateView:0 toDimension:800];
             break;
         case 5:
             [mobileView setHidden:NO];
-            [theSplits_ setPosition:900 ofDividerAtIndex:0];
+            [theSplits_ animateView:0 toDimension:900];
             break;
         default:
             [mobileView setHidden:NO];
-            [theSplits_ setPosition:320 ofDividerAtIndex:0];
+            [theSplits_ animateView:0 toDimension:320];
         break;
     }
     

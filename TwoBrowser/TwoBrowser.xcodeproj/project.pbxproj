@@ -28,8 +28,11 @@
 		0DA5CE68187886080084581D /* SplitViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 0DA5CE67187886080084581D /* SplitViewController.m */; };
 		0DA5CE6E1878DBCE0084581D /* INAppStoreWindow.m in Sources */ = {isa = PBXBuildFile; fileRef = 0DA5CE6B1878DBCE0084581D /* INAppStoreWindow.m */; };
 		0DA5CE6F1878DBCE0084581D /* INWindowButton.m in Sources */ = {isa = PBXBuildFile; fileRef = 0DA5CE6D1878DBCE0084581D /* INWindowButton.m */; };
+		0DDEBDD8187AFBEB00787F2D /* Quartz.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0DDEBDD7187AFBEB00787F2D /* Quartz.framework */; };
+		0DDEBDD9187AFE8C00787F2D /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0DDEBDD1187AF7FA00787F2D /* QuartzCore.framework */; };
 		0DDF552A1878E1E4005994BD /* AppKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0DA5CDE518777A350084581D /* AppKit.framework */; };
 		0DDF552B1878E1ED005994BD /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0DA5CDE718777A350084581D /* Foundation.framework */; };
+		0DEE5477187B0E7D000568A2 /* NSSplitView+Animation.m in Sources */ = {isa = PBXBuildFile; fileRef = 0DEE5476187B0E7D000568A2 /* NSSplitView+Animation.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -76,6 +79,10 @@
 		0DA5CE6B1878DBCE0084581D /* INAppStoreWindow.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = INAppStoreWindow.m; path = TwoBrowser/INAppStoreWindow.m; sourceTree = "<group>"; };
 		0DA5CE6C1878DBCE0084581D /* INWindowButton.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = INWindowButton.h; path = TwoBrowser/INWindowButton.h; sourceTree = "<group>"; };
 		0DA5CE6D1878DBCE0084581D /* INWindowButton.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = INWindowButton.m; path = TwoBrowser/INWindowButton.m; sourceTree = "<group>"; };
+		0DDEBDD1187AF7FA00787F2D /* QuartzCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QuartzCore.framework; path = System/Library/Frameworks/QuartzCore.framework; sourceTree = SDKROOT; };
+		0DDEBDD7187AFBEB00787F2D /* Quartz.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Quartz.framework; path = System/Library/Frameworks/Quartz.framework; sourceTree = SDKROOT; };
+		0DEE5475187B0E7D000568A2 /* NSSplitView+Animation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSSplitView+Animation.h"; sourceTree = "<group>"; };
+		0DEE5476187B0E7D000568A2 /* NSSplitView+Animation.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSSplitView+Animation.m"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -83,6 +90,8 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				0DDEBDD9187AFE8C00787F2D /* QuartzCore.framework in Frameworks */,
+				0DDEBDD8187AFBEB00787F2D /* Quartz.framework in Frameworks */,
 				0DDF552B1878E1ED005994BD /* Foundation.framework in Frameworks */,
 				0DDF552A1878E1E4005994BD /* AppKit.framework in Frameworks */,
 				0DA5CE1718777CFE0084581D /* WebKit.framework in Frameworks */,
@@ -118,6 +127,7 @@
 		0DA5CDD618777A350084581D = {
 			isa = PBXGroup;
 			children = (
+				0DEE5474187B0E7D000568A2 /* NSSplitView */,
 				0D189C5F1879B0C500FD6758 /* image assets */,
 				0DA5CE6A1878DBCE0084581D /* INAppStoreWindow.h */,
 				0DA5CE6B1878DBCE0084581D /* INAppStoreWindow.m */,
@@ -142,6 +152,8 @@
 		0DA5CDE118777A350084581D /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				0DDEBDD7187AFBEB00787F2D /* Quartz.framework */,
+				0DDEBDD1187AF7FA00787F2D /* QuartzCore.framework */,
 				0DA5CE1618777CFE0084581D /* WebKit.framework */,
 				0DA5CDE218777A350084581D /* Cocoa.framework */,
 				0DA5CE0118777A350084581D /* XCTest.framework */,
@@ -203,6 +215,15 @@
 				0DA5CE0918777A350084581D /* InfoPlist.strings */,
 			);
 			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
+		0DEE5474187B0E7D000568A2 /* NSSplitView */ = {
+			isa = PBXGroup;
+			children = (
+				0DEE5475187B0E7D000568A2 /* NSSplitView+Animation.h */,
+				0DEE5476187B0E7D000568A2 /* NSSplitView+Animation.m */,
+			);
+			path = NSSplitView;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -319,6 +340,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				0DA5CDF618777A350084581D /* AppDelegate.m in Sources */,
+				0DEE5477187B0E7D000568A2 /* NSSplitView+Animation.m in Sources */,
 				0DA5CE68187886080084581D /* SplitViewController.m in Sources */,
 				0DA5CE6F1878DBCE0084581D /* INWindowButton.m in Sources */,
 				0DA5CE6E1878DBCE0084581D /* INAppStoreWindow.m in Sources */,

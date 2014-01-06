@@ -9,6 +9,7 @@
 #import <Cocoa/Cocoa.h>
 #import <WebKit/WebKit.h>
 #import "InAppStoreWindow.h"
+#import "NSSplitView+Animation.h"
 
 @class WebView;
 
