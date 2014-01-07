@@ -88,13 +88,13 @@
 - (IBAction)toggleControl:(id)sender {
     switch ((((NSSegmentedControl *)sender).selectedSegment)) {
         case 0:
-            [mobileView setHidden:NO];
-            [theSplits_ setPosition:320 ofDividerAtIndex:0];
+            [theSplits_ animateView:0 toDimension:320];
             [theSplits_ adjustSubviews];
+            [mobileView setHidden:NO];
             break;
         case 1:
             [mobileView setHidden:YES];
-            [theSplits_ setPosition:0 ofDividerAtIndex:0];
+            [theSplits_ animateView:0 toDimension:1];
             [theSplits_ adjustSubviews];
             break;
         default:
@@ -178,5 +178,22 @@
         [self.url close];
     }
 }
+
+#pragma -- importer
+
+-(IBAction)readPlist:(id)sender {
+    NSLog(@"Listing Keys");
+    
+    NSString *path = [@"~/Library/Application Support/Coda 2/Sites/siteIndex.plist" stringByExpandingTildeInPath];
+    NSMutableArray *arrContentsplist = [[NSMutableArray alloc] initWithContentsOfFile:path];
+    
+    NSLog(@"The Path is %@", path);
+    NSLog(@"The content of array is %@", arrContentsplist);
+    
+//    for (NSString *key in keys) {
+//        NSLog(@"%@",key1);
+//    }
+}
+
 
 @end

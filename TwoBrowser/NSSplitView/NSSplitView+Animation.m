@@ -38,7 +38,7 @@
 
 
     [animation setAnimationBlockingMode:NSAnimationBlocking];
-    [animation setDuration:0.5];
+    [animation setDuration:0.3];
     [animation startAnimation];
 }
 

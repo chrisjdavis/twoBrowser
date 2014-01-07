@@ -81,7 +81,7 @@
                         <items>
                             <menuItem title="New" keyEquivalent="n" id="Was-JA-tGl">
                                 <connections>
-                                    <action selector="newDocument:" target="-1" id="4Si-XN-c54"/>
+                                    <action selector="newDocument:" target="-1" id="DOj-FF-75Y"/>
                                 </connections>
                             </menuItem>
                             <menuItem isSeparatorItem="YES" id="m54-Is-iLE"/>
@@ -364,7 +364,7 @@
             </items>
         </menu>
         <window allowsToolTipsWhenApplicationIsInactive="NO" releasedWhenClosed="NO" animationBehavior="default" id="QvC-M9-y7g" customClass="INAppStoreWindow">
-            <windowStyleMask key="styleMask" titled="YES" closable="YES" miniaturizable="YES" resizable="YES" unifiedTitleAndToolbar="YES"/>
+            <windowStyleMask key="styleMask" titled="YES" closable="YES" miniaturizable="YES" resizable="YES"/>
             <windowCollectionBehavior key="collectionBehavior" fullScreenPrimary="YES"/>
             <windowPositionMask key="initialPositionMask" topStrut="YES" bottomStrut="YES"/>
             <rect key="contentRect" x="335" y="390" width="1339" height="1010"/>
@@ -407,6 +407,9 @@
                     </splitView>
                 </subviews>
             </view>
+            <connections>
+                <outlet property="delegate" destination="-2" id="aN8-p3-kzH"/>
+            </connections>
         </window>
         <customView id="ofh-Lc-HLf">
             <rect key="frame" x="0.0" y="0.0" width="924" height="48"/>
@@ -489,6 +492,9 @@
                         <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
                         <font key="font" metaFont="system"/>
                     </buttonCell>
+                    <connections>
+                        <action selector="readPlist:" target="Voe-Tx-rLC" id="IcR-mV-Jkh"/>
+                    </connections>
                 </button>
             </subviews>
         </customView>
