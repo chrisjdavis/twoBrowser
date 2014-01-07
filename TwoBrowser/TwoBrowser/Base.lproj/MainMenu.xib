@@ -369,6 +369,7 @@
             <windowPositionMask key="initialPositionMask" topStrut="YES" bottomStrut="YES"/>
             <rect key="contentRect" x="335" y="390" width="1339" height="1010"/>
             <rect key="screenRect" x="0.0" y="0.0" width="2560" height="1418"/>
+            <value key="minSize" type="size" width="800" height="600"/>
             <view key="contentView" id="EiT-Mj-1SZ">
                 <rect key="frame" x="0.0" y="0.0" width="1339" height="1010"/>
                 <autoresizingMask key="autoresizingMask"/>
@@ -405,6 +406,14 @@
                             <real value="250"/>
                         </holdingPriorities>
                     </splitView>
+                    <button id="fWe-8T-4lC">
+                        <rect key="frame" x="0.0" y="0.0" width="32" height="21"/>
+                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                        <buttonCell key="cell" type="bevel" bezelStyle="rounded" image="NSAddTemplate" imagePosition="only" alignment="center" imageScaling="proportionallyDown" inset="2" id="iO9-lH-6bH">
+                            <behavior key="behavior" lightByContents="YES"/>
+                            <font key="font" metaFont="system"/>
+                        </buttonCell>
+                    </button>
                 </subviews>
             </view>
             <contentBorderThickness minY="22"/>
@@ -529,6 +538,7 @@
         </customView>
     </objects>
     <resources>
+        <image name="NSAddTemplate" width="8" height="8"/>
         <image name="NSBookmarksTemplate" width="17" height="12"/>
         <image name="bottom-files-remote-Template" width="12" height="12"/>
         <image name="bottombar-browser-double-Template" width="13" height="10"/>
