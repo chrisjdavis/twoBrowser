@@ -31,11 +31,11 @@
         <customObject id="YLy-65-1bz" customClass="NSFontManager"/>
         <menu title="Main Menu" systemMenu="main" id="AYu-sK-qS6">
             <items>
-                <menuItem title="TwoBrowser" id="1Xt-HY-uBw">
+                <menuItem title="Two" id="1Xt-HY-uBw">
                     <modifierMask key="keyEquivalentModifierMask"/>
-                    <menu key="submenu" title="TwoBrowser" systemMenu="apple" id="uQy-DD-JDr">
+                    <menu key="submenu" title="Two" systemMenu="apple" id="uQy-DD-JDr">
                         <items>
-                            <menuItem title="About TwoBrowser" id="5kV-Vb-QxS">
+                            <menuItem title="About Two" id="5kV-Vb-QxS">
                                 <modifierMask key="keyEquivalentModifierMask"/>
                                 <connections>
                                     <action selector="orderFrontStandardAboutPanel:" target="-1" id="Exp-CZ-Vem"/>
@@ -49,7 +49,7 @@
                                 <menu key="submenu" title="Services" systemMenu="services" id="hz9-B4-Xy5"/>
                             </menuItem>
                             <menuItem isSeparatorItem="YES" id="4je-JR-u6R"/>
-                            <menuItem title="Hide TwoBrowser" keyEquivalent="h" id="Olw-nP-bQN">
+                            <menuItem title="Hide Two" keyEquivalent="h" id="Olw-nP-bQN">
                                 <connections>
                                     <action selector="hide:" target="-1" id="PnN-Uc-m68"/>
                                 </connections>
@@ -67,7 +67,7 @@
                                 </connections>
                             </menuItem>
                             <menuItem isSeparatorItem="YES" id="kCx-OE-vgT"/>
-                            <menuItem title="Quit TwoBrowser" keyEquivalent="q" id="4sb-4s-VLi">
+                            <menuItem title="Quit Two" keyEquivalent="q" id="4sb-4s-VLi">
                                 <connections>
                                     <action selector="terminate:" target="-1" id="Te7-pn-YzF"/>
                                 </connections>
@@ -374,26 +374,26 @@
                 <autoresizingMask key="autoresizingMask"/>
                 <subviews>
                     <splitView vertical="YES" id="v7F-rw-MIY">
-                        <rect key="frame" x="0.0" y="0.0" width="1339" height="1010"/>
+                        <rect key="frame" x="0.0" y="22" width="1339" height="988"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <customView id="pdj-Gk-LOF">
-                                <rect key="frame" x="0.0" y="0.0" width="389" height="1010"/>
+                                <rect key="frame" x="0.0" y="0.0" width="389" height="988"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <subviews>
                                     <webView identifier="mobile" appearanceType="lightContent" id="I5j-p8-iO4">
-                                        <rect key="frame" x="0.0" y="0.0" width="392" height="1010"/>
+                                        <rect key="frame" x="0.0" y="0.0" width="392" height="988"/>
                                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                         <webPreferences key="preferences" identifier="mobile" defaultFontSize="16" defaultFixedFontSize="13" minimumFontSize="0"/>
                                     </webView>
                                 </subviews>
                             </customView>
                             <customView appearanceType="lightContent" id="SSx-od-Z5O">
-                                <rect key="frame" x="398" y="0.0" width="941" height="1010"/>
+                                <rect key="frame" x="398" y="0.0" width="941" height="988"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <subviews>
                                     <webView identifier="desktop" appearanceType="lightContent" id="sWb-iF-nUq">
-                                        <rect key="frame" x="0.0" y="0.0" width="947" height="1010"/>
+                                        <rect key="frame" x="0.0" y="0.0" width="947" height="988"/>
                                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                         <webPreferences key="preferences" identifier="desktop" defaultFontSize="16" defaultFixedFontSize="13" minimumFontSize="0"/>
                                     </webView>
@@ -407,6 +407,7 @@
                     </splitView>
                 </subviews>
             </view>
+            <contentBorderThickness minY="22"/>
             <connections>
                 <outlet property="delegate" destination="-2" id="aN8-p3-kzH"/>
             </connections>

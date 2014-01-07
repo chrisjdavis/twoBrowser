@@ -229,9 +229,9 @@
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
-		0DA5CDDE18777A350084581D /* TwoBrowser */ = {
+		0DA5CDDE18777A350084581D /* Two */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = 0DA5CE1018777A350084581D /* Build configuration list for PBXNativeTarget "TwoBrowser" */;
+			buildConfigurationList = 0DA5CE1018777A350084581D /* Build configuration list for PBXNativeTarget "Two" */;
 			buildPhases = (
 				0DA5CDDB18777A350084581D /* Sources */,
 				0DA5CDDC18777A350084581D /* Frameworks */,
@@ -241,7 +241,7 @@
 			);
 			dependencies = (
 			);
-			name = TwoBrowser;
+			name = Two;
 			productName = TwoBrowser;
 			productReference = 0DA5CDDF18777A350084581D /* TwoBrowser.app */;
 			productType = "com.apple.product-type.application";
@@ -303,7 +303,7 @@
 			projectDirPath = "";
 			projectRoot = "";
 			targets = (
-				0DA5CDDE18777A350084581D /* TwoBrowser */,
+				0DA5CDDE18777A350084581D /* Two */,
 				0DA5CDFF18777A350084581D /* TwoBrowserTests */,
 			);
 		};
@@ -364,7 +364,7 @@
 /* Begin PBXTargetDependency section */
 		0DA5CE0518777A350084581D /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
-			target = 0DA5CDDE18777A350084581D /* TwoBrowser */;
+			target = 0DA5CDDE18777A350084581D /* Two */;
 			targetProxy = 0DA5CE0418777A350084581D /* PBXContainerItemProxy */;
 		};
 /* End PBXTargetDependency section */
@@ -551,7 +551,7 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		0DA5CE1018777A350084581D /* Build configuration list for PBXNativeTarget "TwoBrowser" */ = {
+		0DA5CE1018777A350084581D /* Build configuration list for PBXNativeTarget "Two" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				0DA5CE1118777A350084581D /* Debug */,

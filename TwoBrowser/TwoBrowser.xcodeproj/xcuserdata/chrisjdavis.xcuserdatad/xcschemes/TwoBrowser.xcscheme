@@ -16,7 +16,7 @@
                BuildableIdentifier = "primary"
                BlueprintIdentifier = "0DA5CDDE18777A350084581D"
                BuildableName = "TwoBrowser.app"
-               BlueprintName = "TwoBrowser"
+               BlueprintName = "Two"
                ReferencedContainer = "container:TwoBrowser.xcodeproj">
             </BuildableReference>
          </BuildActionEntry>
@@ -44,7 +44,7 @@
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "0DA5CDDE18777A350084581D"
             BuildableName = "TwoBrowser.app"
-            BlueprintName = "TwoBrowser"
+            BlueprintName = "Two"
             ReferencedContainer = "container:TwoBrowser.xcodeproj">
          </BuildableReference>
       </MacroExpansion>
@@ -63,7 +63,7 @@
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "0DA5CDDE18777A350084581D"
             BuildableName = "TwoBrowser.app"
-            BlueprintName = "TwoBrowser"
+            BlueprintName = "Two"
             ReferencedContainer = "container:TwoBrowser.xcodeproj">
          </BuildableReference>
       </BuildableProductRunnable>
@@ -81,7 +81,7 @@
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "0DA5CDDE18777A350084581D"
             BuildableName = "TwoBrowser.app"
-            BlueprintName = "TwoBrowser"
+            BlueprintName = "Two"
             ReferencedContainer = "container:TwoBrowser.xcodeproj">
          </BuildableReference>
       </BuildableProductRunnable>
