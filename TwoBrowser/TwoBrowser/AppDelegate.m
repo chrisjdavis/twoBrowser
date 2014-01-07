@@ -12,6 +12,7 @@
 @interface AppDelegate ()
 
 - (IBAction)connectURL:(id)sender;
+- (IBAction)reloadURL:(id)sender;
 
 @end;
 
@@ -37,6 +38,12 @@
 
 - (void)applicationDidFinishLaunching:(NSNotification *)aNotification
 {
+    // setup some cache defaults.
+    int cacheSizeMemory = 4*1024*1024; // 4MB
+    int cacheSizeDisk = 32*1024*1024; // 32MB
+    NSURLCache *sharedCache = [[NSURLCache alloc] initWithMemoryCapacity:cacheSizeMemory diskCapacity:cacheSizeDisk diskPath:@"nsurlcache"];
+    [NSURLCache setSharedURLCache:sharedCache];
+    
     self.windowControllers = [NSMutableArray array];
     self.window.trafficLightButtonsLeftMargin = 9.0;
     self.window.fullScreenButtonRightMargin = 7.0;
@@ -137,6 +144,11 @@
     [textField resignFirstResponder];
 }
 
+- (IBAction)reloadURL:(id)sender {
+    [[mobileView mainFrame] reload];
+    [[desktopView mainFrame] reload];
+}
+
 #pragma mark -- Custom Window
 
 - (void)setupCloseButton {
@@ -203,6 +215,12 @@
 
 - (IBAction)cancelBookmark:(id)sender {
     [self.bookmarkAdd close];
+}
+
+#pragma -- Helper/Conveience functions
+
+- (IBAction)clearCache:(id)sender {
+    [[NSURLCache sharedURLCache] removeAllCachedResponses];
 }
 
 @end

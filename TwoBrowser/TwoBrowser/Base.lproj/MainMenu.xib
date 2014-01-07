@@ -89,6 +89,11 @@
                                 </connections>
                             </menuItem>
                             <menuItem isSeparatorItem="YES" id="m54-Is-iLE"/>
+                            <menuItem title="Reset Cache" keyEquivalent="C" id="4EV-tb-82P">
+                                <connections>
+                                    <action selector="clearCache:" target="Voe-Tx-rLC" id="LxJ-VC-CHf"/>
+                                </connections>
+                            </menuItem>
                             <menuItem title="Close" keyEquivalent="w" id="DVo-aG-piG">
                                 <connections>
                                     <action selector="performClose:" target="-1" id="HmO-Ls-i7Q"/>
@@ -341,6 +346,11 @@
                                 <modifierMask key="keyEquivalentModifierMask"/>
                                 <connections>
                                     <action selector="performZoom:" target="-1" id="DIl-cC-cCs"/>
+                                </connections>
+                            </menuItem>
+                            <menuItem title="Reload" keyEquivalent="r" id="R2R-WI-9fy">
+                                <connections>
+                                    <action selector="reloadURL:" target="Voe-Tx-rLC" id="xIN-zI-ADO"/>
                                 </connections>
                             </menuItem>
                             <menuItem isSeparatorItem="YES" id="eu3-7i-yIM"/>

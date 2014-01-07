@@ -47,5 +47,6 @@
 - (IBAction)showBookmark:(id)sender;
 - (IBAction)addBookmark:(id)sender;
 - (IBAction)cancelBookmark:(id)sender;
+- (IBAction)clearCache:(id)sender;
 
 @end
