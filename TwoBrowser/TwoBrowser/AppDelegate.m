@@ -44,6 +44,9 @@
     NSURLCache *sharedCache = [[NSURLCache alloc] initWithMemoryCapacity:cacheSizeMemory diskCapacity:cacheSizeDisk diskPath:@"nsurlcache"];
     [NSURLCache setSharedURLCache:sharedCache];
     
+    NSAppleEventManager *eventManager = [NSAppleEventManager sharedAppleEventManager];
+    [eventManager setEventHandler:self andSelector:@selector(handleGetURLEvent:withReplyEvent:) forEventClass:kInternetEventClass andEventID:kAEGetURL];
+    
     self.windowControllers = [NSMutableArray array];
     self.window.trafficLightButtonsLeftMargin = 9.0;
     self.window.fullScreenButtonRightMargin = 7.0;
@@ -53,7 +56,23 @@
     self.titleView.autoresizingMask = NSViewWidthSizable | NSViewHeightSizable;
     [self.window.titleBarView addSubview:self.titleView];
     [theSplits_ setPosition:320 ofDividerAtIndex:0];
+    
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(webViewFinishedLoading:)name:WebViewProgressFinishedNotification object:nil];
+}
+
+- (void)handleGetURLEvent:(NSAppleEventDescriptor *)event withReplyEvent:(NSAppleEventDescriptor *)replyEvent
+{
+    NSString *urlString = [[event paramDescriptorForKeyword:keyDirectObject] stringValue];
+
+    NSString *prefixToRemove = @"two://";
+    NSString *newString = [urlString copy];
+    
+    if ([urlString hasPrefix:prefixToRemove]) {
+        newString = [urlString substringFromIndex:[prefixToRemove length]];
+        [self connectURL:newString];
+    }
+    
+    //url
 }
 
 #pragma mark -- respsonsive breakpoints
@@ -125,9 +144,17 @@
 }
 
 - (IBAction)connectURL:(id)sender {
-    NSString* urlString = [sender stringValue];
-    NSURL* rUrl = [NSURL URLWithString:urlString];
-
+    NSURL* rUrl = nil;
+    NSString* urlString = nil;
+    
+    if( [sender isKindOfClass:[NSString class]] ) {
+        urlString = sender;
+        rUrl = [NSURL URLWithString:sender];
+    } else {
+        urlString = [sender stringValue];
+        rUrl = [NSURL URLWithString:urlString];
+    }
+    
     if(!rUrl.scheme) {
         NSString* modifiedURLString = [NSString stringWithFormat:@"http://%@", urlString];
         rUrl = [NSURL URLWithString:modifiedURLString];
