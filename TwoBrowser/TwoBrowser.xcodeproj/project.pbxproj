@@ -13,6 +13,7 @@
 		0D189C63187A009B00FD6758 /* pathbar-edge@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 0D189C61187A009B00FD6758 /* pathbar-edge@2x.png */; };
 		0D189C66187A06FD00FD6758 /* ipreview-ipad-large.pdf in Resources */ = {isa = PBXBuildFile; fileRef = 0D189C64187A06FD00FD6758 /* ipreview-ipad-large.pdf */; };
 		0D189C67187A06FD00FD6758 /* ipreview-iphone-large.pdf in Resources */ = {isa = PBXBuildFile; fileRef = 0D189C65187A06FD00FD6758 /* ipreview-iphone-large.pdf */; };
+		0D2880D5187BC534006AFEFA /* gradient@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 0D2880D4187BC534006AFEFA /* gradient@2x.png */; };
 		0DA5CDE318777A350084581D /* Cocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0DA5CDE218777A350084581D /* Cocoa.framework */; };
 		0DA5CDED18777A350084581D /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 0DA5CDEB18777A350084581D /* InfoPlist.strings */; };
 		0DA5CDEF18777A350084581D /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 0DA5CDEE18777A350084581D /* main.m */; };
@@ -24,7 +25,6 @@
 		0DA5CE0B18777A350084581D /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 0DA5CE0918777A350084581D /* InfoPlist.strings */; };
 		0DA5CE0D18777A350084581D /* TwoBrowserTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 0DA5CE0C18777A350084581D /* TwoBrowserTests.m */; };
 		0DA5CE1718777CFE0084581D /* WebKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0DA5CE1618777CFE0084581D /* WebKit.framework */; };
-		0DA5CE68187886080084581D /* SplitViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 0DA5CE67187886080084581D /* SplitViewController.m */; };
 		0DA5CE6E1878DBCE0084581D /* INAppStoreWindow.m in Sources */ = {isa = PBXBuildFile; fileRef = 0DA5CE6B1878DBCE0084581D /* INAppStoreWindow.m */; };
 		0DA5CE6F1878DBCE0084581D /* INWindowButton.m in Sources */ = {isa = PBXBuildFile; fileRef = 0DA5CE6D1878DBCE0084581D /* INWindowButton.m */; };
 		0DDEBDD8187AFBEB00787F2D /* Quartz.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0DDEBDD7187AFBEB00787F2D /* Quartz.framework */; };
@@ -53,7 +53,8 @@
 		0D189C61187A009B00FD6758 /* pathbar-edge@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "pathbar-edge@2x.png"; sourceTree = "<group>"; };
 		0D189C64187A06FD00FD6758 /* ipreview-ipad-large.pdf */ = {isa = PBXFileReference; lastKnownFileType = image.pdf; path = "ipreview-ipad-large.pdf"; sourceTree = "<group>"; };
 		0D189C65187A06FD00FD6758 /* ipreview-iphone-large.pdf */ = {isa = PBXFileReference; lastKnownFileType = image.pdf; path = "ipreview-iphone-large.pdf"; sourceTree = "<group>"; };
-		0DA5CDDF18777A350084581D /* TwoBrowser.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = TwoBrowser.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		0D2880D4187BC534006AFEFA /* gradient@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "gradient@2x.png"; sourceTree = "<group>"; };
+		0DA5CDDF18777A350084581D /* Two.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Two.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		0DA5CDE218777A350084581D /* Cocoa.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Cocoa.framework; path = System/Library/Frameworks/Cocoa.framework; sourceTree = SDKROOT; };
 		0DA5CDE518777A350084581D /* AppKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AppKit.framework; path = System/Library/Frameworks/AppKit.framework; sourceTree = SDKROOT; };
 		0DA5CDE618777A350084581D /* CoreData.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreData.framework; path = System/Library/Frameworks/CoreData.framework; sourceTree = SDKROOT; };
@@ -72,8 +73,6 @@
 		0DA5CE0A18777A350084581D /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		0DA5CE0C18777A350084581D /* TwoBrowserTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = TwoBrowserTests.m; sourceTree = "<group>"; };
 		0DA5CE1618777CFE0084581D /* WebKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = WebKit.framework; path = System/Library/Frameworks/WebKit.framework; sourceTree = SDKROOT; };
-		0DA5CE66187886080084581D /* SplitViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SplitViewController.h; sourceTree = "<group>"; };
-		0DA5CE67187886080084581D /* SplitViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SplitViewController.m; sourceTree = "<group>"; };
 		0DA5CE6A1878DBCE0084581D /* INAppStoreWindow.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = INAppStoreWindow.h; path = TwoBrowser/INAppStoreWindow.h; sourceTree = "<group>"; };
 		0DA5CE6B1878DBCE0084581D /* INAppStoreWindow.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = INAppStoreWindow.m; path = TwoBrowser/INAppStoreWindow.m; sourceTree = "<group>"; };
 		0DA5CE6C1878DBCE0084581D /* INWindowButton.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = INWindowButton.h; path = TwoBrowser/INWindowButton.h; sourceTree = "<group>"; };
@@ -114,6 +113,7 @@
 		0D189C5F1879B0C500FD6758 /* image assets */ = {
 			isa = PBXGroup;
 			children = (
+				0D2880D4187BC534006AFEFA /* gradient@2x.png */,
 				0DEE5478187B20EC000568A2 /* bottom-files-remote-Template.pdf */,
 				0D189C64187A06FD00FD6758 /* ipreview-ipad-large.pdf */,
 				0D189C65187A06FD00FD6758 /* ipreview-iphone-large.pdf */,
@@ -144,7 +144,7 @@
 		0DA5CDE018777A350084581D /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				0DA5CDDF18777A350084581D /* TwoBrowser.app */,
+				0DA5CDDF18777A350084581D /* Two.app */,
 				0DA5CE0018777A350084581D /* TwoBrowserTests.xctest */,
 			);
 			name = Products;
@@ -182,8 +182,6 @@
 				0DA5CDF718777A350084581D /* MainMenu.xib */,
 				0DA5CDFA18777A350084581D /* Images.xcassets */,
 				0DA5CDE918777A350084581D /* Supporting Files */,
-				0DA5CE66187886080084581D /* SplitViewController.h */,
-				0DA5CE67187886080084581D /* SplitViewController.m */,
 			);
 			path = TwoBrowser;
 			sourceTree = "<group>";
@@ -243,7 +241,7 @@
 			);
 			name = Two;
 			productName = TwoBrowser;
-			productReference = 0DA5CDDF18777A350084581D /* TwoBrowser.app */;
+			productReference = 0DA5CDDF18777A350084581D /* Two.app */;
 			productType = "com.apple.product-type.application";
 		};
 		0DA5CDFF18777A350084581D /* TwoBrowserTests */ = {
@@ -320,6 +318,7 @@
 				0D189C5E1879B0BD00FD6758 /* bottombar-browser-single-Template.pdf in Resources */,
 				0D189C63187A009B00FD6758 /* pathbar-edge@2x.png in Resources */,
 				0DEE5479187B20EC000568A2 /* bottom-files-remote-Template.pdf in Resources */,
+				0D2880D5187BC534006AFEFA /* gradient@2x.png in Resources */,
 				0D189C67187A06FD00FD6758 /* ipreview-iphone-large.pdf in Resources */,
 				0D189C66187A06FD00FD6758 /* ipreview-ipad-large.pdf in Resources */,
 				0D189C5D1879B0BD00FD6758 /* bottombar-browser-double-Template.pdf in Resources */,
@@ -344,7 +343,6 @@
 			files = (
 				0DA5CDF618777A350084581D /* AppDelegate.m in Sources */,
 				0DEE5477187B0E7D000568A2 /* NSSplitView+Animation.m in Sources */,
-				0DA5CE68187886080084581D /* SplitViewController.m in Sources */,
 				0DA5CE6F1878DBCE0084581D /* INWindowButton.m in Sources */,
 				0DA5CE6E1878DBCE0084581D /* INAppStoreWindow.m in Sources */,
 				0DA5CDEF18777A350084581D /* main.m in Sources */,

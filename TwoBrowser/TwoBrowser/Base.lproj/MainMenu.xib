@@ -14,7 +14,11 @@
         <customObject id="-3" userLabel="Application"/>
         <customObject id="Voe-Tx-rLC" customClass="AppDelegate">
             <connections>
+                <outlet property="addBookmarkButton" destination="cky-wI-eAz" id="qKu-av-ESg"/>
+                <outlet property="bookmarkAdd" destination="JpC-wM-Q5f" id="frk-7m-78d"/>
+                <outlet property="bookmarkButton" destination="fWe-8T-4lC" id="z8T-LV-ssa"/>
                 <outlet property="breakpoints" destination="ddC-7P-C33" id="3Ci-T2-PzO"/>
+                <outlet property="cancelBookmarkButton" destination="FIu-6r-VPL" id="wqf-pc-JhB"/>
                 <outlet property="desktopView" destination="sWb-iF-nUq" id="8YO-c5-OS5"/>
                 <outlet property="mobileView" destination="I5j-p8-iO4" id="5yz-K2-5GE"/>
                 <outlet property="progr" destination="ROg-wt-Hte" id="5E8-o2-aVW"/>
@@ -413,6 +417,9 @@
                             <behavior key="behavior" lightByContents="YES"/>
                             <font key="font" metaFont="system"/>
                         </buttonCell>
+                        <connections>
+                            <action selector="showBookmark:" target="Voe-Tx-rLC" id="h2x-lS-xjr"/>
+                        </connections>
                     </button>
                 </subviews>
             </view>
@@ -534,6 +541,73 @@
                         <action selector="connectURL:" target="Voe-Tx-rLC" id="gBv-cp-Yld"/>
                     </connections>
                 </textField>
+            </subviews>
+        </customView>
+        <viewController id="iTC-tK-E12" userLabel="Popover View Controller">
+            <connections>
+                <outlet property="view" destination="IIP-2L-NGA" id="zRP-HR-mEZ"/>
+            </connections>
+        </viewController>
+        <popover id="JpC-wM-Q5f">
+            <connections>
+                <outlet property="contentViewController" destination="iTC-tK-E12" id="w1k-AP-ciz"/>
+            </connections>
+        </popover>
+        <customView id="IIP-2L-NGA">
+            <rect key="frame" x="0.0" y="0.0" width="228" height="136"/>
+            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+            <subviews>
+                <textField verticalHuggingPriority="750" id="tsL-o5-U0w">
+                    <rect key="frame" x="20" y="77" width="188" height="22"/>
+                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                    <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" selectable="YES" editable="YES" sendsActionOnEndEditing="YES" state="on" borderStyle="bezel" placeholderString="Nickname" drawsBackground="YES" usesSingleLineMode="YES" id="x1N-JI-G5G">
+                        <font key="font" metaFont="system"/>
+                        <color key="textColor" name="textColor" catalog="System" colorSpace="catalog"/>
+                        <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
+                    </textFieldCell>
+                </textField>
+                <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" id="gzA-K6-hxi">
+                    <rect key="frame" x="42" y="111" width="143" height="17"/>
+                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                    <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" title="Add a new bookmark." id="fX7-B6-djv">
+                        <font key="font" metaFont="cellTitle"/>
+                        <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
+                        <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
+                    </textFieldCell>
+                </textField>
+                <textField verticalHuggingPriority="750" id="kUQ-Yc-daQ">
+                    <rect key="frame" x="20" y="41" width="188" height="22"/>
+                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                    <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" selectable="YES" editable="YES" sendsActionOnEndEditing="YES" state="on" borderStyle="bezel" placeholderString="URL" drawsBackground="YES" id="juq-xj-SAN">
+                        <font key="font" metaFont="system"/>
+                        <color key="textColor" name="textColor" catalog="System" colorSpace="catalog"/>
+                        <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
+                    </textFieldCell>
+                </textField>
+                <imageView horizontalHuggingPriority="251" verticalHuggingPriority="251" id="liP-iF-hd6">
+                    <rect key="frame" x="17" y="111" width="22" height="18"/>
+                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                    <imageCell key="cell" refusesFirstResponder="YES" alignment="left" imageScaling="proportionallyDown" image="NSBookmarksTemplate" id="Rl8-fE-Vkj"/>
+                </imageView>
+                <button verticalHuggingPriority="750" id="cky-wI-eAz">
+                    <rect key="frame" x="20" y="7" width="48" height="25"/>
+                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                    <buttonCell key="cell" type="roundTextured" title="Add" bezelStyle="texturedRounded" alignment="center" state="on" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="560-bz-YhG">
+                        <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
+                        <font key="font" metaFont="system"/>
+                    </buttonCell>
+                </button>
+                <button verticalHuggingPriority="750" id="FIu-6r-VPL">
+                    <rect key="frame" x="76" y="7" width="61" height="25"/>
+                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                    <buttonCell key="cell" type="roundTextured" title="Cancel" bezelStyle="texturedRounded" alignment="center" state="on" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="tXR-qC-384">
+                        <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
+                        <font key="font" metaFont="system"/>
+                    </buttonCell>
+                    <connections>
+                        <action selector="cancelBookmark:" target="Voe-Tx-rLC" id="nbC-il-yBO"/>
+                    </connections>
+                </button>
             </subviews>
         </customView>
     </objects>

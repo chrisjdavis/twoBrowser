@@ -25,6 +25,11 @@
 @synthesize breakpoints;
 @synthesize url;
 @synthesize urlButton;
+@synthesize bookmarkAdd;
+@synthesize bookmarkButton;
+@synthesize addBookmarkButton;
+@synthesize cancelBookmarkButton;
+
 
 - (void) awakeFromNib {
     [theSplits_ setAutosaveName:@"2splitView"];
@@ -164,11 +169,16 @@
     self.window.zoomButton = button;
 }
 
-#pragma mark -- URLPopOver
+#pragma mark -- NSPopOvers
 
 - (BOOL)buttonIsPressed
 {
     return self.urlButton.intValue == 1;
+}
+
+- (BOOL)bookMarkbuttonIsPressed
+{
+    return self.bookmarkButton.intValue == 1;
 }
 
 - (IBAction)showURL:(id)sender {
@@ -179,21 +189,20 @@
     }
 }
 
-#pragma -- importer
-
--(IBAction)readPlist:(id)sender {
-    NSLog(@"Listing Keys");
-    
-    NSString *path = [@"~/Library/Application Support/Coda 2/Sites/siteIndex.plist" stringByExpandingTildeInPath];
-    NSMutableArray *arrContentsplist = [[NSMutableArray alloc] initWithContentsOfFile:path];
-    
-    NSLog(@"The Path is %@", path);
-    NSLog(@"The content of array is %@", arrContentsplist);
-    
-//    for (NSString *key in keys) {
-//        NSLog(@"%@",key1);
-//    }
+- (IBAction)showBookmark:(id)sender {
+    if (self.bookMarkbuttonIsPressed) {
+        [[self bookmarkAdd] showRelativeToRect:[sender bounds] ofView:sender preferredEdge:NSMaxYEdge];
+    } else {
+        [self.bookmarkAdd close];
+    }
 }
 
+#pragma -- Bookmarks/Sites
+
+- (IBAction)addBookmark:(id)sender {}
+
+- (IBAction)cancelBookmark:(id)sender {
+    [self.bookmarkAdd close];
+}
 
 @end

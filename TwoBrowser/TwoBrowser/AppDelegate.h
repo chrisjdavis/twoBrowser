@@ -25,6 +25,10 @@
 @property (weak) IBOutlet NSPopUpButton *breakpoints;
 @property (assign) IBOutlet NSPopover *url;
 @property (weak) IBOutlet NSButton *urlButton;
+@property (assign) IBOutlet NSPopover *bookmarkAdd;
+@property (weak) IBOutlet NSButton *bookmarkButton;
+@property (weak) IBOutlet NSButton *addBookmarkButton;
+@property (weak) IBOutlet NSButton *cancelBookmarkButton;
 
 @property (assign) IBOutlet INAppStoreWindow *window;
 @property (assign) IBOutlet NSButton *centerFullScreen;
@@ -40,5 +44,8 @@
 
 - (IBAction)toggleControl:(id)sender;
 - (IBAction)showURL:(id)sender;
+- (IBAction)showBookmark:(id)sender;
+- (IBAction)addBookmark:(id)sender;
+- (IBAction)cancelBookmark:(id)sender;
 
 @end
