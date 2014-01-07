@@ -29,6 +29,8 @@
 @property (weak) IBOutlet NSButton *bookmarkButton;
 @property (weak) IBOutlet NSButton *addBookmarkButton;
 @property (weak) IBOutlet NSButton *cancelBookmarkButton;
+@property (weak) IBOutlet NSTextField *pageTitle;
+@property (weak) IBOutlet NSImageView *pageFavicon;
 
 @property (assign) IBOutlet INAppStoreWindow *window;
 @property (assign) IBOutlet NSButton *centerFullScreen;

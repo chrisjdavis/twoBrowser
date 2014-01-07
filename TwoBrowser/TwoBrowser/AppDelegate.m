@@ -30,6 +30,8 @@
 @synthesize bookmarkButton;
 @synthesize addBookmarkButton;
 @synthesize cancelBookmarkButton;
+@synthesize pageTitle;
+@synthesize pageFavicon;
 
 
 - (void) awakeFromNib {
@@ -141,6 +143,10 @@
 
 - (void)webViewFinishedLoading:(NSNotification *)notification {
     [self.progr stopAnimation:[notification object]];
+    NSString * pageTitleString = [NSString stringWithFormat:@"Testing %@", [mobileView mainFrameTitle]];
+    [pageFavicon setHidden:NO];
+    [pageTitle setStringValue:pageTitleString];
+    [pageFavicon setImage:[mobileView mainFrameIcon]];
 }
 
 - (IBAction)connectURL:(id)sender {
@@ -164,6 +170,7 @@
     NSMutableURLRequest *request = [NSMutableURLRequest requestWithURL:rUrl];
     [request setValue:kMobileSafariUserAgent forHTTPHeaderField:@"User-Agent"];
     
+    [pageFavicon setHidden:YES];
     [self.progr startAnimation:sender];
     [self.url close];
     [[mobileView mainFrame] loadRequest:request];

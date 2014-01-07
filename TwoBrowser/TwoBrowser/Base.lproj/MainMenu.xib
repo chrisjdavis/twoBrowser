@@ -21,10 +21,13 @@
                 <outlet property="cancelBookmarkButton" destination="FIu-6r-VPL" id="wqf-pc-JhB"/>
                 <outlet property="desktopView" destination="sWb-iF-nUq" id="8YO-c5-OS5"/>
                 <outlet property="mobileView" destination="I5j-p8-iO4" id="5yz-K2-5GE"/>
+                <outlet property="pageFavicon" destination="Ubo-py-yuR" id="8FX-HG-zXL"/>
+                <outlet property="pageTitle" destination="ZqD-V1-uS6" id="pHl-pq-NN0"/>
                 <outlet property="progr" destination="ROg-wt-Hte" id="5E8-o2-aVW"/>
                 <outlet property="splitContiainer" destination="v7F-rw-MIY" id="jlX-EO-tH5"/>
                 <outlet property="textField" destination="yNa-ZG-X3f" id="6V4-lL-6XM"/>
                 <outlet property="theSplits" destination="v7F-rw-MIY" id="0kQ-9b-vd3"/>
+                <outlet property="title" destination="ZqD-V1-uS6" id="VUq-ao-Qtt"/>
                 <outlet property="titleView" destination="ofh-Lc-HLf" id="3nh-MM-gt9"/>
                 <outlet property="toggler" destination="sWo-61-v9q" id="5e0-Fu-dNW"/>
                 <outlet property="url" destination="AYf-Xr-M3c" id="5H9-Mu-xRu"/>
@@ -511,6 +514,20 @@
                         <action selector="readPlist:" target="Voe-Tx-rLC" id="IcR-mV-Jkh"/>
                     </connections>
                 </button>
+                <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" id="ZqD-V1-uS6">
+                    <rect key="frame" x="400" y="20" width="505" height="17"/>
+                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                    <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" title="Welcome to Two." id="gF1-Mc-Fxe">
+                        <font key="font" metaFont="system"/>
+                        <color key="textColor" name="controlDarkShadowColor" catalog="System" colorSpace="catalog"/>
+                        <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
+                    </textFieldCell>
+                </textField>
+                <imageView horizontalHuggingPriority="251" verticalHuggingPriority="251" id="Ubo-py-yuR">
+                    <rect key="frame" x="377" y="17" width="20" height="21"/>
+                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                    <imageCell key="cell" refusesFirstResponder="YES" alignment="left" imageScaling="proportionallyDown" id="70T-1K-RAP"/>
+                </imageView>
             </subviews>
         </customView>
         <viewController id="kIA-JH-7ju" userLabel="Popover View Controller">
