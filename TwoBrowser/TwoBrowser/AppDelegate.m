@@ -30,6 +30,8 @@
 @synthesize bookmarkButton;
 @synthesize addBookmarkButton;
 @synthesize cancelBookmarkButton;
+@synthesize bookmarkNick;
+@synthesize bookmarkURL;
 @synthesize pageTitle;
 @synthesize pageFavicon;
 
@@ -233,22 +235,6 @@
     } else {
         [self.url close];
     }
-}
-
-- (IBAction)showBookmark:(id)sender {
-    if (self.bookMarkbuttonIsPressed) {
-        [[self bookmarkAdd] showRelativeToRect:[sender bounds] ofView:sender preferredEdge:NSMaxYEdge];
-    } else {
-        [self.bookmarkAdd close];
-    }
-}
-
-#pragma -- Bookmarks/Sites
-
-- (IBAction)addBookmark:(id)sender {}
-
-- (IBAction)cancelBookmark:(id)sender {
-    [self.bookmarkAdd close];
 }
 
 #pragma -- Helper/Conveience functions

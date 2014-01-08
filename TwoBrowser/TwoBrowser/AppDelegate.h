@@ -29,6 +29,8 @@
 @property (weak) IBOutlet NSButton *bookmarkButton;
 @property (weak) IBOutlet NSButton *addBookmarkButton;
 @property (weak) IBOutlet NSButton *cancelBookmarkButton;
+@property (weak) IBOutlet NSTextField *bookmarkNick;
+@property (weak) IBOutlet NSTextField *bookmarkURL;
 @property (weak) IBOutlet NSTextField *pageTitle;
 @property (weak) IBOutlet NSImageView *pageFavicon;
 
@@ -46,9 +48,6 @@
 
 - (IBAction)toggleControl:(id)sender;
 - (IBAction)showURL:(id)sender;
-- (IBAction)showBookmark:(id)sender;
-- (IBAction)addBookmark:(id)sender;
-- (IBAction)cancelBookmark:(id)sender;
 - (IBAction)clearCache:(id)sender;
 
 @end
