@@ -35,8 +35,10 @@
 @synthesize pageTitle;
 @synthesize pageFavicon;
 
-
 - (void) awakeFromNib {
+    [self loadWelcome];
+    NSAppleEventManager *eventManager = [NSAppleEventManager sharedAppleEventManager];
+    [eventManager setEventHandler:self andSelector:@selector(handleGetURLEvent:withReplyEvent:) forEventClass:kInternetEventClass andEventID:kAEGetURL];
     [theSplits_ setAutosaveName:@"2splitView"];
 }
 
@@ -75,8 +77,6 @@
         newString = [urlString substringFromIndex:[prefixToRemove length]];
         [self connectURL:newString];
     }
-    
-    //url
 }
 
 #pragma mark -- respsonsive breakpoints
@@ -138,6 +138,13 @@
 }
 
 #pragma mark -- webKit Specific
+
+- (void)loadWelcome {
+    NSString *localFilePath = [[NSBundle mainBundle] pathForResource:@"welcome" ofType:@"html"];
+    NSURLRequest *localRequest = [NSURLRequest requestWithURL:[NSURL fileURLWithPath:localFilePath]];
+    [[mobileView mainFrame] loadRequest:localRequest];
+    [[desktopView mainFrame] loadRequest:localRequest];
+}
 
 - (void)webViewDidStartLoad:(NSNotification *)notification {
     [pageFavicon setHidden:YES];

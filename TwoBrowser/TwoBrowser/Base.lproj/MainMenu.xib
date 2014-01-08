@@ -365,10 +365,9 @@
                 </menuItem>
             </items>
         </menu>
-        <window allowsToolTipsWhenApplicationIsInactive="NO" releasedWhenClosed="NO" animationBehavior="default" id="QvC-M9-y7g" customClass="INAppStoreWindow">
+        <window allowsToolTipsWhenApplicationIsInactive="NO" releasedWhenClosed="NO" animationBehavior="documentWindow" frameAutosaveName="mainWindow" id="QvC-M9-y7g" customClass="INAppStoreWindow">
             <windowStyleMask key="styleMask" titled="YES" closable="YES" miniaturizable="YES" resizable="YES"/>
             <windowCollectionBehavior key="collectionBehavior" fullScreenPrimary="YES"/>
-            <windowPositionMask key="initialPositionMask" topStrut="YES" bottomStrut="YES"/>
             <rect key="contentRect" x="335" y="390" width="1339" height="1010"/>
             <rect key="screenRect" x="0.0" y="0.0" width="2560" height="1418"/>
             <value key="minSize" type="size" width="800" height="600"/>
@@ -376,27 +375,27 @@
                 <rect key="frame" x="0.0" y="0.0" width="1339" height="1010"/>
                 <autoresizingMask key="autoresizingMask"/>
                 <subviews>
-                    <splitView vertical="YES" id="v7F-rw-MIY">
+                    <splitView dividerStyle="thin" vertical="YES" id="v7F-rw-MIY">
                         <rect key="frame" x="0.0" y="22" width="1339" height="988"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <customView id="pdj-Gk-LOF">
-                                <rect key="frame" x="0.0" y="0.0" width="389" height="988"/>
+                                <rect key="frame" x="0.0" y="0.0" width="391" height="988"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <subviews>
                                     <webView identifier="mobile" appearanceType="lightContent" id="I5j-p8-iO4">
-                                        <rect key="frame" x="0.0" y="0.0" width="392" height="988"/>
+                                        <rect key="frame" x="0.0" y="0.0" width="394" height="988"/>
                                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                         <webPreferences key="preferences" identifier="mobile" defaultFontSize="16" defaultFixedFontSize="13" minimumFontSize="0"/>
                                     </webView>
                                 </subviews>
                             </customView>
                             <customView appearanceType="lightContent" id="SSx-od-Z5O">
-                                <rect key="frame" x="398" y="0.0" width="941" height="988"/>
+                                <rect key="frame" x="392" y="0.0" width="947" height="988"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <subviews>
                                     <webView identifier="desktop" appearanceType="lightContent" id="sWb-iF-nUq">
-                                        <rect key="frame" x="0.0" y="0.0" width="947" height="988"/>
+                                        <rect key="frame" x="0.0" y="0.0" width="953" height="988"/>
                                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                         <webPreferences key="preferences" identifier="desktop" defaultFontSize="16" defaultFixedFontSize="13" minimumFontSize="0"/>
                                     </webView>
