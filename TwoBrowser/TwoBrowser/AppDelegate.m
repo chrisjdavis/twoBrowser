@@ -61,15 +61,15 @@
     [self.window.titleBarView addSubview:self.titleView];
     [theSplits_ setPosition:320 ofDividerAtIndex:0];
     
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(webViewDidStartLoad:)name:WebViewProgressStartedNotification object:nil];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(webViewFinishedLoading:)name:WebViewProgressFinishedNotification object:nil];
 }
 
 - (void)handleGetURLEvent:(NSAppleEventDescriptor *)event withReplyEvent:(NSAppleEventDescriptor *)replyEvent
 {
     NSString *urlString = [[event paramDescriptorForKeyword:keyDirectObject] stringValue];
-
     NSString *prefixToRemove = @"two://";
-    NSString *newString = [urlString copy];
+    NSString *newString = nil;
     
     if ([urlString hasPrefix:prefixToRemove]) {
         newString = [urlString substringFromIndex:[prefixToRemove length]];
@@ -140,15 +140,22 @@
 #pragma mark -- webKit Specific
 
 - (void)webViewDidStartLoad:(NSNotification *)notification {
+    [pageFavicon setHidden:YES];
     [self.progr startAnimation:[notification object]];
 }
 
 - (void)webViewFinishedLoading:(NSNotification *)notification {
     [self.progr stopAnimation:[notification object]];
-    NSString * pageTitleString = [NSString stringWithFormat:@"Testing %@", [mobileView mainFrameTitle]];
+
+    NSString * TitleString = [NSString stringWithFormat:@"Testing %@", [[notification object] mainFrameTitle]];
+    
     [pageFavicon setHidden:NO];
-    [pageTitle setStringValue:pageTitleString];
-    [pageFavicon setImage:[mobileView mainFrameIcon]];
+    [pageTitle setStringValue:TitleString];
+    [pageFavicon setImage:[[notification object] mainFrameIcon]];
+}
+
+- (void)webViewProgressStarted:(NSNotification *)notification {
+    NSLog(@"%@", [notification object]);
 }
 
 - (IBAction)connectURL:(id)sender {
