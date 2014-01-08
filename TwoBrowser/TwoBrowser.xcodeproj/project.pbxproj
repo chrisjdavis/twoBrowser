@@ -14,6 +14,13 @@
 		0D189C66187A06FD00FD6758 /* ipreview-ipad-large.pdf in Resources */ = {isa = PBXBuildFile; fileRef = 0D189C64187A06FD00FD6758 /* ipreview-ipad-large.pdf */; };
 		0D189C67187A06FD00FD6758 /* ipreview-iphone-large.pdf in Resources */ = {isa = PBXBuildFile; fileRef = 0D189C65187A06FD00FD6758 /* ipreview-iphone-large.pdf */; };
 		0D2880D5187BC534006AFEFA /* gradient@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 0D2880D4187BC534006AFEFA /* gradient@2x.png */; };
+		0D7A45B7187DC59B002EFD78 /* app.icon.512.png in Resources */ = {isa = PBXBuildFile; fileRef = 0D7A45B6187DC59B002EFD78 /* app.icon.512.png */; };
+		0D7A45BC187DC769002EFD78 /* app.icon.16.png in Resources */ = {isa = PBXBuildFile; fileRef = 0D7A45B8187DC769002EFD78 /* app.icon.16.png */; };
+		0D7A45BD187DC769002EFD78 /* app.icon.32.png in Resources */ = {isa = PBXBuildFile; fileRef = 0D7A45B9187DC769002EFD78 /* app.icon.32.png */; };
+		0D7A45BE187DC769002EFD78 /* app.icon.128.png in Resources */ = {isa = PBXBuildFile; fileRef = 0D7A45BA187DC769002EFD78 /* app.icon.128.png */; };
+		0D7A45BF187DC769002EFD78 /* app.icon.256.png in Resources */ = {isa = PBXBuildFile; fileRef = 0D7A45BB187DC769002EFD78 /* app.icon.256.png */; };
+		0D7A45C1187DC7DB002EFD78 /* app.icon.64.png in Resources */ = {isa = PBXBuildFile; fileRef = 0D7A45C0187DC7DB002EFD78 /* app.icon.64.png */; };
+		0D7A45C3187DDA1A002EFD78 /* app.icon.1024.png in Resources */ = {isa = PBXBuildFile; fileRef = 0D7A45C2187DDA1A002EFD78 /* app.icon.1024.png */; };
 		0DA5CDE318777A350084581D /* Cocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0DA5CDE218777A350084581D /* Cocoa.framework */; };
 		0DA5CDED18777A350084581D /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 0DA5CDEB18777A350084581D /* InfoPlist.strings */; };
 		0DA5CDEF18777A350084581D /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 0DA5CDEE18777A350084581D /* main.m */; };
@@ -54,6 +61,13 @@
 		0D189C64187A06FD00FD6758 /* ipreview-ipad-large.pdf */ = {isa = PBXFileReference; lastKnownFileType = image.pdf; path = "ipreview-ipad-large.pdf"; sourceTree = "<group>"; };
 		0D189C65187A06FD00FD6758 /* ipreview-iphone-large.pdf */ = {isa = PBXFileReference; lastKnownFileType = image.pdf; path = "ipreview-iphone-large.pdf"; sourceTree = "<group>"; };
 		0D2880D4187BC534006AFEFA /* gradient@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "gradient@2x.png"; sourceTree = "<group>"; };
+		0D7A45B6187DC59B002EFD78 /* app.icon.512.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = app.icon.512.png; sourceTree = "<group>"; };
+		0D7A45B8187DC769002EFD78 /* app.icon.16.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = app.icon.16.png; sourceTree = "<group>"; };
+		0D7A45B9187DC769002EFD78 /* app.icon.32.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = app.icon.32.png; sourceTree = "<group>"; };
+		0D7A45BA187DC769002EFD78 /* app.icon.128.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = app.icon.128.png; sourceTree = "<group>"; };
+		0D7A45BB187DC769002EFD78 /* app.icon.256.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = app.icon.256.png; sourceTree = "<group>"; };
+		0D7A45C0187DC7DB002EFD78 /* app.icon.64.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = app.icon.64.png; sourceTree = "<group>"; };
+		0D7A45C2187DDA1A002EFD78 /* app.icon.1024.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = app.icon.1024.png; sourceTree = "<group>"; };
 		0DA5CDDF18777A350084581D /* Two.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Two.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		0DA5CDE218777A350084581D /* Cocoa.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Cocoa.framework; path = System/Library/Frameworks/Cocoa.framework; sourceTree = SDKROOT; };
 		0DA5CDE518777A350084581D /* AppKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AppKit.framework; path = System/Library/Frameworks/AppKit.framework; sourceTree = SDKROOT; };
@@ -113,6 +127,13 @@
 		0D189C5F1879B0C500FD6758 /* image assets */ = {
 			isa = PBXGroup;
 			children = (
+				0D7A45C2187DDA1A002EFD78 /* app.icon.1024.png */,
+				0D7A45C0187DC7DB002EFD78 /* app.icon.64.png */,
+				0D7A45B8187DC769002EFD78 /* app.icon.16.png */,
+				0D7A45B9187DC769002EFD78 /* app.icon.32.png */,
+				0D7A45BA187DC769002EFD78 /* app.icon.128.png */,
+				0D7A45BB187DC769002EFD78 /* app.icon.256.png */,
+				0D7A45B6187DC59B002EFD78 /* app.icon.512.png */,
 				0D2880D4187BC534006AFEFA /* gradient@2x.png */,
 				0DEE5478187B20EC000568A2 /* bottom-files-remote-Template.pdf */,
 				0D189C64187A06FD00FD6758 /* ipreview-ipad-large.pdf */,
@@ -313,16 +334,23 @@
 			buildActionMask = 2147483647;
 			files = (
 				0DA5CDED18777A350084581D /* InfoPlist.strings in Resources */,
+				0D7A45B7187DC59B002EFD78 /* app.icon.512.png in Resources */,
 				0D189C62187A009B00FD6758 /* pathbar-edge.png in Resources */,
+				0D7A45C3187DDA1A002EFD78 /* app.icon.1024.png in Resources */,
+				0D7A45BD187DC769002EFD78 /* app.icon.32.png in Resources */,
 				0DA5CDFB18777A350084581D /* Images.xcassets in Resources */,
 				0D189C5E1879B0BD00FD6758 /* bottombar-browser-single-Template.pdf in Resources */,
+				0D7A45BF187DC769002EFD78 /* app.icon.256.png in Resources */,
 				0D189C63187A009B00FD6758 /* pathbar-edge@2x.png in Resources */,
 				0DEE5479187B20EC000568A2 /* bottom-files-remote-Template.pdf in Resources */,
+				0D7A45BC187DC769002EFD78 /* app.icon.16.png in Resources */,
 				0D2880D5187BC534006AFEFA /* gradient@2x.png in Resources */,
 				0D189C67187A06FD00FD6758 /* ipreview-iphone-large.pdf in Resources */,
 				0D189C66187A06FD00FD6758 /* ipreview-ipad-large.pdf in Resources */,
 				0D189C5D1879B0BD00FD6758 /* bottombar-browser-double-Template.pdf in Resources */,
+				0D7A45BE187DC769002EFD78 /* app.icon.128.png in Resources */,
 				0DA5CDF918777A350084581D /* MainMenu.xib in Resources */,
+				0D7A45C1187DC7DB002EFD78 /* app.icon.64.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
