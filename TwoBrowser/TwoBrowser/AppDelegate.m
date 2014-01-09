@@ -18,6 +18,7 @@
 
 @implementation AppDelegate
 
+@synthesize window;
 @synthesize textField;
 @synthesize mobileView;
 @synthesize desktopView;
@@ -134,7 +135,8 @@
 - (IBAction)toggleControl:(id)sender {
     switch ((((NSSegmentedControl *)sender).selectedSegment)) {
         case 0:
-            [theSplits_ animateView:0 toDimension:320];
+            [theSplits_ setPosition:1 ofDividerAtIndex:0];
+            [theSplits_ animateView:0 toDimension:320 + 0];
             [theSplits_ adjustSubviews];
             [mobileView setHidden:NO];
             [mobileWidth setHidden:NO];
@@ -142,7 +144,7 @@
         case 1:
             [mobileView setHidden:YES];
             [mobileWidth setHidden:YES];
-            [theSplits_ animateView:0 toDimension:1];
+            [theSplits_ animateView:0 toDimension:0];
             [theSplits_ adjustSubviews];
             break;
         default:
