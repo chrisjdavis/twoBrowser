@@ -26,24 +26,13 @@
 @property (assign) IBOutlet NSPopover *url;
 @property (weak) IBOutlet NSButton *urlButton;
 @property (assign) IBOutlet NSPopover *bookmarkAdd;
-@property (weak) IBOutlet NSButton *bookmarkButton;
-@property (weak) IBOutlet NSButton *addBookmarkButton;
-@property (weak) IBOutlet NSButton *cancelBookmarkButton;
-@property (weak) IBOutlet NSTextField *bookmarkNick;
-@property (weak) IBOutlet NSTextField *bookmarkURL;
 @property (weak) IBOutlet NSTextField *pageTitle;
 @property (weak) IBOutlet NSImageView *pageFavicon;
+@property (weak) IBOutlet NSTextField *mobileWidth;
+@property (weak) IBOutlet NSTextField *desktopWidth;
+@property (weak) IBOutlet NSView *sizeDivider;
 
 @property (assign) IBOutlet INAppStoreWindow *window;
-@property (assign) IBOutlet NSButton *centerFullScreen;
-@property (assign) IBOutlet NSButton *centerTrafficLight;
-@property (assign) IBOutlet NSButton *verticalTrafficLight;
-@property (assign) IBOutlet NSButton *verticallyCenterTitle;
-@property (assign) IBOutlet NSSlider *fullScreenRightMarginSlider;
-@property (assign) IBOutlet NSSlider *trafficLightLeftMargin;
-@property (assign) IBOutlet NSSlider *trafficLightSeparation;
-@property (assign) IBOutlet NSSlider *titleBarHeight;
-@property (assign) IBOutlet NSButton *showsBaselineSeparator;
 @property (nonatomic, retain) NSMutableArray *windowControllers;
 
 - (IBAction)toggleControl:(id)sender;

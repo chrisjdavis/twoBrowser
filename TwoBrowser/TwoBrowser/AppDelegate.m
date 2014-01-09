@@ -27,13 +27,11 @@
 @synthesize url;
 @synthesize urlButton;
 @synthesize bookmarkAdd;
-@synthesize bookmarkButton;
-@synthesize addBookmarkButton;
-@synthesize cancelBookmarkButton;
-@synthesize bookmarkNick;
-@synthesize bookmarkURL;
 @synthesize pageTitle;
 @synthesize pageFavicon;
+@synthesize desktopWidth;
+@synthesize mobileWidth;
+@synthesize sizeDivider;
 
 - (void) awakeFromNib {
     [self loadWelcome];
@@ -61,10 +59,18 @@
     self.titleView.frame = self.window.titleBarView.bounds;
     self.titleView.autoresizingMask = NSViewWidthSizable | NSViewHeightSizable;
     [self.window.titleBarView addSubview:self.titleView];
-    [theSplits_ setPosition:320 ofDividerAtIndex:0];
+    
+    [theSplits_ setPosition:320 - 3 ofDividerAtIndex:0];
+    
+    NSRect leftFrame = [mobileView frame];
+    NSRect rightFrame = [desktopView frame];
+    
+    [mobileWidth setStringValue:[NSString stringWithFormat: @"%.f", floor(leftFrame.size.width)]];
+    [desktopWidth setStringValue:[NSString stringWithFormat: @"%.f", floor(rightFrame.size.width)]];
     
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(webViewDidStartLoad:)name:WebViewProgressStartedNotification object:nil];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(webViewFinishedLoading:)name:WebViewProgressFinishedNotification object:nil];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(didResize:)name:NSSplitViewDidResizeSubviewsNotification object: nil];
 }
 
 - (void)handleGetURLEvent:(NSAppleEventDescriptor *)event withReplyEvent:(NSAppleEventDescriptor *)replyEvent
@@ -85,27 +91,27 @@
     switch (breakpoints.indexOfSelectedItem) {
         case 1:
             [mobileView setHidden:NO];
-            [theSplits_ animateView:0 toDimension:320];
+            [theSplits_ animateView:0 toDimension:320 - 3];
             break;
         case 2:
             [mobileView setHidden:NO];
-            [theSplits_ animateView:0 toDimension:360];
+            [theSplits_ animateView:0 toDimension:360 - 3];
             break;
         case 3:
             [mobileView setHidden:NO];
-            [theSplits_ animateView:0 toDimension:768];
+            [theSplits_ animateView:0 toDimension:768 - 3];
             break;
         case 4:
             [mobileView setHidden:NO];
-            [theSplits_ animateView:0 toDimension:800];
+            [theSplits_ animateView:0 toDimension:800 - 3];
             break;
         case 5:
             [mobileView setHidden:NO];
-            [theSplits_ animateView:0 toDimension:900];
+            [theSplits_ animateView:0 toDimension:980 - 3];
             break;
         default:
             [mobileView setHidden:NO];
-            [theSplits_ animateView:0 toDimension:320];
+            [theSplits_ animateView:0 toDimension:320 - 3];
         break;
     }
     
@@ -114,11 +120,16 @@
     [breakpoints selectItemAtIndex:indexOfSelectedItem];
     
     toggler.selectedSegment = 0;
+    
+    NSRect leftFrame = [mobileView frame];
+    NSRect rightFrame = [desktopView frame];
+    
+    [mobileWidth setStringValue:[NSString stringWithFormat: @"%.f", floor(leftFrame.size.width)]];
+    [desktopWidth setStringValue:[NSString stringWithFormat: @"%.f", floor(rightFrame.size.width)]];
     [theSplits_ adjustSubviews];
-
 }
 
-#pragma mark -- mobileView Collapsing
+#pragma mark -- SplitVIiew crap
 
 - (IBAction)toggleControl:(id)sender {
     switch ((((NSSegmentedControl *)sender).selectedSegment)) {
@@ -126,15 +137,25 @@
             [theSplits_ animateView:0 toDimension:320];
             [theSplits_ adjustSubviews];
             [mobileView setHidden:NO];
+            [mobileWidth setHidden:NO];
             break;
         case 1:
             [mobileView setHidden:YES];
+            [mobileWidth setHidden:YES];
             [theSplits_ animateView:0 toDimension:1];
             [theSplits_ adjustSubviews];
             break;
         default:
         break;
     }
+}
+
+- (void)didResize:(NSNotification *)notification {
+    NSRect leftFrame = [mobileView frame];
+    NSRect rightFrame = [desktopView frame];
+    
+    [mobileWidth setStringValue:[NSString stringWithFormat: @"%.f", floor(leftFrame.size.width)]];
+    [desktopWidth setStringValue:[NSString stringWithFormat: @"%.f", floor(rightFrame.size.width)]];
 }
 
 #pragma mark -- webKit Specific
@@ -153,16 +174,22 @@
 
 - (void)webViewFinishedLoading:(NSNotification *)notification {
     [self.progr stopAnimation:[notification object]];
-
+    
     NSString * TitleString = [NSString stringWithFormat:@"Testing %@", [[notification object] mainFrameTitle]];
+    NSString * newURLString = [NSString stringWithFormat:@"%@", [[notification object] mainFrameURL]];
+    
+    
+    if( [self contains:@"file://" on:newURLString] == false ) {
+        [textField setStringValue:newURLString];
+    }
     
     [pageFavicon setHidden:NO];
     [pageTitle setStringValue:TitleString];
     [pageFavicon setImage:[[notification object] mainFrameIcon]];
 }
 
-- (void)webViewProgressStarted:(NSNotification *)notification {
-    NSLog(@"%@", [notification object]);
+-(BOOL)contains:(NSString *)StrSearchTerm on:(NSString *)StrText {
+    return  [StrText rangeOfString:StrSearchTerm options:NSCaseInsensitiveSearch].location==NSNotFound?FALSE:TRUE;
 }
 
 - (IBAction)connectURL:(id)sender {
@@ -188,6 +215,7 @@
     
     [pageFavicon setHidden:YES];
     [self.progr startAnimation:sender];
+    self.urlButton.intValue = 0;
     [self.url close];
     [[mobileView mainFrame] loadRequest:request];
     [[desktopView mainFrame] loadRequest:[NSMutableURLRequest requestWithURL:rUrl]];
@@ -238,15 +266,11 @@
     return self.urlButton.intValue == 1;
 }
 
-- (BOOL)bookMarkbuttonIsPressed
-{
-    return self.bookmarkButton.intValue == 1;
-}
-
 - (IBAction)showURL:(id)sender {
     if (self.buttonIsPressed) {
         [[self url] showRelativeToRect:[sender bounds] ofView:sender preferredEdge:NSMaxYEdge];
     } else {
+        self.urlButton.intValue = 0;
         [self.url close];
     }
 }

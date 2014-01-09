@@ -1,8 +1,9 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="3.0" toolsVersion="5037" systemVersion="13C32" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none">
+<document type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="3.0" toolsVersion="4514" systemVersion="13C32" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none">
     <dependencies>
-        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="5037"/>
-        <plugIn identifier="com.apple.WebKitIBPlugin" version="5037"/>
+        <deployment defaultVersion="1080" identifier="macosx"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="4514"/>
+        <plugIn identifier="com.apple.WebKitIBPlugin" version="3338"/>
     </dependencies>
     <objects>
         <customObject id="-2" userLabel="File's Owner" customClass="NSApplication">
@@ -17,7 +18,9 @@
                 <outlet property="bookmarkAdd" destination="JpC-wM-Q5f" id="frk-7m-78d"/>
                 <outlet property="breakpoints" destination="ddC-7P-C33" id="3Ci-T2-PzO"/>
                 <outlet property="desktopView" destination="sWb-iF-nUq" id="8YO-c5-OS5"/>
+                <outlet property="desktopWidth" destination="L55-Dz-Q86" id="eeQ-fM-646"/>
                 <outlet property="mobileView" destination="I5j-p8-iO4" id="5yz-K2-5GE"/>
+                <outlet property="mobileWidth" destination="DjK-1y-JaG" id="EMq-qY-V2a"/>
                 <outlet property="pageFavicon" destination="Ubo-py-yuR" id="8FX-HG-zXL"/>
                 <outlet property="pageTitle" destination="ZqD-V1-uS6" id="pHl-pq-NN0"/>
                 <outlet property="progr" destination="ROg-wt-Hte" id="5E8-o2-aVW"/>
@@ -373,29 +376,29 @@
             <value key="minSize" type="size" width="800" height="600"/>
             <view key="contentView" id="EiT-Mj-1SZ">
                 <rect key="frame" x="0.0" y="0.0" width="1339" height="1010"/>
-                <autoresizingMask key="autoresizingMask"/>
+                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES" flexibleMaxY="YES"/>
                 <subviews>
-                    <splitView dividerStyle="thin" vertical="YES" id="v7F-rw-MIY">
-                        <rect key="frame" x="0.0" y="22" width="1339" height="988"/>
+                    <splitView autosaveName="2splitView" dividerStyle="thin" vertical="YES" id="v7F-rw-MIY">
+                        <rect key="frame" x="0.0" y="32" width="1339" height="978"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <customView id="pdj-Gk-LOF">
-                                <rect key="frame" x="0.0" y="0.0" width="391" height="988"/>
+                                <rect key="frame" x="0.0" y="0.0" width="391" height="978"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <subviews>
                                     <webView identifier="mobile" appearanceType="lightContent" id="I5j-p8-iO4">
-                                        <rect key="frame" x="0.0" y="0.0" width="394" height="988"/>
+                                        <rect key="frame" x="0.0" y="0.0" width="394" height="978"/>
                                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                         <webPreferences key="preferences" identifier="mobile" defaultFontSize="16" defaultFixedFontSize="13" minimumFontSize="0"/>
                                     </webView>
                                 </subviews>
                             </customView>
                             <customView appearanceType="lightContent" id="SSx-od-Z5O">
-                                <rect key="frame" x="392" y="0.0" width="947" height="988"/>
+                                <rect key="frame" x="392" y="0.0" width="947" height="978"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <subviews>
                                     <webView identifier="desktop" appearanceType="lightContent" id="sWb-iF-nUq">
-                                        <rect key="frame" x="0.0" y="0.0" width="953" height="988"/>
+                                        <rect key="frame" x="0.0" y="0.0" width="953" height="978"/>
                                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                         <webPreferences key="preferences" identifier="desktop" defaultFontSize="16" defaultFixedFontSize="13" minimumFontSize="0"/>
                                     </webView>
@@ -407,9 +410,37 @@
                             <real value="250"/>
                         </holdingPriorities>
                     </splitView>
+                    <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" setsMaxLayoutWidthAtFirstLayout="YES" id="L55-Dz-Q86">
+                        <rect key="frame" x="1296" y="7" width="38" height="17"/>
+                        <autoresizingMask key="autoresizingMask" flexibleMinX="YES"/>
+                        <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" title="Label" id="ySZ-Th-CaO">
+                            <font key="font" metaFont="system"/>
+                            <color key="textColor" white="0.33496806569343074" alpha="1" colorSpace="calibratedWhite"/>
+                            <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
+                        </textFieldCell>
+                    </textField>
+                    <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" id="DjK-1y-JaG">
+                        <rect key="frame" x="28" y="7" width="38" height="17"/>
+                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES"/>
+                        <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" title="Label" id="fmZ-Cq-iEg">
+                            <font key="font" metaFont="system"/>
+                            <color key="textColor" white="0.33496806569999998" alpha="1" colorSpace="calibratedWhite"/>
+                            <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
+                        </textFieldCell>
+                    </textField>
+                    <imageView horizontalHuggingPriority="251" verticalHuggingPriority="251" id="LJK-Fd-NRq">
+                        <rect key="frame" x="1276" y="7" width="19" height="16"/>
+                        <autoresizingMask key="autoresizingMask" flexibleMinX="YES"/>
+                        <imageCell key="cell" enabled="NO" alignment="left" imageScaling="proportionallyDown" image="rulers" id="WX5-zp-dm1"/>
+                    </imageView>
+                    <imageView horizontalHuggingPriority="251" verticalHuggingPriority="251" id="lCW-VE-idP">
+                        <rect key="frame" x="7" y="7" width="19" height="16"/>
+                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES"/>
+                        <imageCell key="cell" enabled="NO" alignment="left" imageScaling="proportionallyDown" image="rulers" id="eGq-GC-PXS"/>
+                    </imageView>
                 </subviews>
             </view>
-            <contentBorderThickness minY="22"/>
+            <contentBorderThickness minY="32"/>
             <connections>
                 <outlet property="delegate" destination="-2" id="aN8-p3-kzH"/>
             </connections>
@@ -493,7 +524,7 @@
                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                     <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" title="Welcome to Two." id="gF1-Mc-Fxe">
                         <font key="font" metaFont="system"/>
-                        <color key="textColor" name="controlDarkShadowColor" catalog="System" colorSpace="catalog"/>
+                        <color key="textColor" white="0.23756843065693431" alpha="1" colorSpace="calibratedWhite"/>
                         <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
                     </textFieldCell>
                 </textField>
@@ -538,6 +569,14 @@
                 <outlet property="contentViewController" destination="iTC-tK-E12" id="w1k-AP-ciz"/>
             </connections>
         </popover>
+        <button verticalHuggingPriority="750" id="AN0-l1-AG6">
+            <rect key="frame" x="0.0" y="0.0" width="122" height="19"/>
+            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+            <buttonCell key="cell" type="roundRect" title="Round Rect Button" bezelStyle="roundedRect" alignment="center" state="on" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="WL0-dQ-OgK">
+                <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
+                <font key="font" metaFont="controlContent"/>
+            </buttonCell>
+        </button>
     </objects>
     <resources>
         <image name="bottom-files-remote-Template" width="12" height="12"/>
@@ -546,5 +585,6 @@
         <image name="ipreview-ipad-large" width="12" height="16"/>
         <image name="ipreview-iphone-large" width="12" height="16"/>
         <image name="pathbar-edge" width="2" height="24"/>
+        <image name="rulers" width="64" height="64"/>
     </resources>
 </document>
