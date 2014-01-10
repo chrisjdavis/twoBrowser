@@ -30,7 +30,7 @@
 @property (weak) IBOutlet NSImageView *pageFavicon;
 @property (weak) IBOutlet NSTextField *mobileWidth;
 @property (weak) IBOutlet NSTextField *desktopWidth;
-@property (weak) IBOutlet NSView *sizeDivider;
+@property (weak) IBOutlet NSView *mobileSizeIcon;
 
 @property (assign) IBOutlet INAppStoreWindow *window;
 @property (nonatomic, retain) NSMutableArray *windowControllers;

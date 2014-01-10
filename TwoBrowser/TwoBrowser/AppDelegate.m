@@ -32,7 +32,7 @@
 @synthesize pageFavicon;
 @synthesize desktopWidth;
 @synthesize mobileWidth;
-@synthesize sizeDivider;
+@synthesize mobileSizeIcon;
 
 - (void) awakeFromNib {
     [self loadWelcome];
@@ -72,6 +72,8 @@
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(webViewDidStartLoad:)name:WebViewProgressStartedNotification object:nil];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(webViewFinishedLoading:)name:WebViewProgressFinishedNotification object:nil];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(didResize:)name:NSSplitViewDidResizeSubviewsNotification object: nil];
+    [mobileView setPolicyDelegate:self];
+    [desktopView setPolicyDelegate:self];
 }
 
 - (void)handleGetURLEvent:(NSAppleEventDescriptor *)event withReplyEvent:(NSAppleEventDescriptor *)replyEvent
@@ -84,6 +86,18 @@
         newString = [urlString substringFromIndex:[prefixToRemove length]];
         [self connectURL:newString];
     }
+}
+
+- (void)webView:(WebView *)sender decidePolicyForNavigationAction:(NSDictionary *)actionInformation request:(NSURLRequest *)request frame:(WebFrame *)frame decisionListener:(id<WebPolicyDecisionListener>)listener {
+    NSNumber *navType = [actionInformation objectForKey: @"WebActionNavigationTypeKey"];
+
+    if( sender == mobileView && [navType isEqualToNumber:[NSNumber numberWithInt:0]] ) {
+        [[desktopView mainFrame] loadRequest:request];
+    } else if( sender == desktopView && [navType isEqualToNumber:[NSNumber numberWithInt:0]] ) {
+        [[mobileView mainFrame] loadRequest:request];
+    }
+    
+    [listener use];
 }
 
 #pragma mark -- respsonsive breakpoints
@@ -140,10 +154,12 @@
             [theSplits_ adjustSubviews];
             [mobileView setHidden:NO];
             [mobileWidth setHidden:NO];
+            [mobileSizeIcon setHidden:NO];
             break;
         case 1:
             [mobileView setHidden:YES];
             [mobileWidth setHidden:YES];
+            [mobileSizeIcon setHidden:YES];
             [theSplits_ animateView:0 toDimension:0];
             [theSplits_ adjustSubviews];
             break;
@@ -161,6 +177,11 @@
 }
 
 #pragma mark -- webKit Specific
+
+- (void)webView:(WebView *)webView decidePolicyForNewWindowAction:(NSDictionary *)actionInformation request:(NSURLRequest *)request newFrameName:(NSString *)frameName decisionListener:(id <WebPolicyDecisionListener>)listener {
+//    [[NSWorkspace sharedWorkspace] openURL:[request URL]];
+    NSLog(@"%@", request);
+}
 
 - (void)loadWelcome {
     NSString *localFilePath = [[NSBundle mainBundle] pathForResource:@"welcome" ofType:@"html"];

@@ -19,6 +19,7 @@
                 <outlet property="breakpoints" destination="ddC-7P-C33" id="3Ci-T2-PzO"/>
                 <outlet property="desktopView" destination="sWb-iF-nUq" id="8YO-c5-OS5"/>
                 <outlet property="desktopWidth" destination="L55-Dz-Q86" id="eeQ-fM-646"/>
+                <outlet property="mobileSizeIcon" destination="lCW-VE-idP" id="Ue2-Ct-qcE"/>
                 <outlet property="mobileView" destination="I5j-p8-iO4" id="5yz-K2-5GE"/>
                 <outlet property="mobileWidth" destination="DjK-1y-JaG" id="EMq-qY-V2a"/>
                 <outlet property="pageFavicon" destination="Ubo-py-yuR" id="8FX-HG-zXL"/>
@@ -481,7 +482,7 @@
                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                     <imageCell key="cell" refusesFirstResponder="YES" alignment="left" image="pathbar-edge" id="aa1-Wp-iCl"/>
                 </imageView>
-                <popUpButton verticalHuggingPriority="750" id="ddC-7P-C33">
+                <popUpButton toolTip="Select a Breakpoint to Apply" verticalHuggingPriority="750" id="ddC-7P-C33">
                     <rect key="frame" x="173" y="15" width="128" height="25"/>
                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                     <popUpButtonCell key="cell" type="roundTextured" title="Breakpoints" bezelStyle="texturedRounded" alignment="center" lineBreakMode="truncatingTail" state="on" borderStyle="border" imageScaling="proportionallyDown" inset="2" pullsDown="YES" id="m2S-GH-qvn">
@@ -508,7 +509,7 @@
                         <action selector="chooseBreakpoint:" target="Voe-Tx-rLC" id="2PF-5n-C8D"/>
                     </connections>
                 </popUpButton>
-                <button verticalHuggingPriority="750" id="2uN-Fr-K83">
+                <button toolTip="Enter a URL Manually." verticalHuggingPriority="750" id="2uN-Fr-K83">
                     <rect key="frame" x="309" y="15" width="26" height="25"/>
                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                     <buttonCell key="cell" type="roundTextured" bezelStyle="texturedRounded" image="bottom-files-remote-Template" imagePosition="only" alignment="center" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="Y4c-4j-yOY">
@@ -574,7 +575,7 @@
             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
             <buttonCell key="cell" type="roundRect" title="Round Rect Button" bezelStyle="roundedRect" alignment="center" state="on" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="WL0-dQ-OgK">
                 <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
-                <font key="font" metaFont="controlContent"/>
+                <font key="font" metaFont="cellTitle"/>
             </buttonCell>
         </button>
     </objects>
