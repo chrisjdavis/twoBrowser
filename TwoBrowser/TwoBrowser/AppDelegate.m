@@ -9,7 +9,7 @@
 #import "AppDelegate.h"
 #import "INWindowButton.h"
 
-@interface AppDelegate ()
+@interface AppDelegate() <NSSplitViewDelegate>
 
 - (IBAction)connectURL:(id)sender;
 - (IBAction)reloadURL:(id)sender;
@@ -38,7 +38,6 @@
     [self loadWelcome];
     NSAppleEventManager *eventManager = [NSAppleEventManager sharedAppleEventManager];
     [eventManager setEventHandler:self andSelector:@selector(handleGetURLEvent:withReplyEvent:) forEventClass:kInternetEventClass andEventID:kAEGetURL];
-    [theSplits_ setAutosaveName:@"2splitView"];
 }
 
 - (void)applicationDidFinishLaunching:(NSNotification *)aNotification
@@ -52,7 +51,6 @@
     NSAppleEventManager *eventManager = [NSAppleEventManager sharedAppleEventManager];
     [eventManager setEventHandler:self andSelector:@selector(handleGetURLEvent:withReplyEvent:) forEventClass:kInternetEventClass andEventID:kAEGetURL];
     
-    self.windowControllers = [NSMutableArray array];
     self.window.trafficLightButtonsLeftMargin = 9.0;
     self.window.fullScreenButtonRightMargin = 7.0;
     self.window.centerFullScreenButton = YES;
@@ -72,6 +70,8 @@
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(webViewDidStartLoad:)name:WebViewProgressStartedNotification object:nil];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(webViewFinishedLoading:)name:WebViewProgressFinishedNotification object:nil];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(didResize:)name:NSSplitViewDidResizeSubviewsNotification object: nil];
+    
+    [theSplits_ setDelegate:self];
     [mobileView setPolicyDelegate:self];
     [desktopView setPolicyDelegate:self];
 }
@@ -86,18 +86,6 @@
         newString = [urlString substringFromIndex:[prefixToRemove length]];
         [self connectURL:newString];
     }
-}
-
-- (void)webView:(WebView *)sender decidePolicyForNavigationAction:(NSDictionary *)actionInformation request:(NSURLRequest *)request frame:(WebFrame *)frame decisionListener:(id<WebPolicyDecisionListener>)listener {
-    NSNumber *navType = [actionInformation objectForKey: @"WebActionNavigationTypeKey"];
-
-    if( sender == mobileView && [navType isEqualToNumber:[NSNumber numberWithInt:0]] ) {
-        [[desktopView mainFrame] loadRequest:request];
-    } else if( sender == desktopView && [navType isEqualToNumber:[NSNumber numberWithInt:0]] ) {
-        [[mobileView mainFrame] loadRequest:request];
-    }
-    
-    [listener use];
 }
 
 #pragma mark -- respsonsive breakpoints
@@ -176,12 +164,20 @@
     [desktopWidth setStringValue:[NSString stringWithFormat: @"%.f", floor(rightFrame.size.width)]];
 }
 
-#pragma mark -- webKit Specific
-
-- (void)webView:(WebView *)webView decidePolicyForNewWindowAction:(NSDictionary *)actionInformation request:(NSURLRequest *)request newFrameName:(NSString *)frameName decisionListener:(id <WebPolicyDecisionListener>)listener {
-//    [[NSWorkspace sharedWorkspace] openURL:[request URL]];
-    NSLog(@"%@", request);
+- (BOOL)splitView:(NSSplitView *)splitView shouldAdjustSizeOfSubview:(NSView *)subview {
+    NSView *m = [[splitView subviews] objectAtIndex:0];
+    NSView *d = [[splitView subviews] objectAtIndex:1];
+    
+    if ( subview == d ) {
+        return YES;
+    } else if( subview == m ) {
+        return NO;
+    } else {
+        return YES;
+    }
 }
+
+#pragma mark -- webKit Specific
 
 - (void)loadWelcome {
     NSString *localFilePath = [[NSBundle mainBundle] pathForResource:@"welcome" ofType:@"html"];
@@ -209,6 +205,18 @@
     [pageFavicon setHidden:NO];
     [pageTitle setStringValue:TitleString];
     [pageFavicon setImage:[[notification object] mainFrameIcon]];
+}
+
+- (void)webView:(WebView *)sender decidePolicyForNavigationAction:(NSDictionary *)actionInformation request:(NSURLRequest *)request frame:(WebFrame *)frame decisionListener:(id<WebPolicyDecisionListener>)listener {
+    NSNumber *navType = [actionInformation objectForKey: @"WebActionNavigationTypeKey"];
+    
+    if( sender == mobileView && [navType isEqualToNumber:[NSNumber numberWithInt:0]] ) {
+        [[desktopView mainFrame] loadRequest:request];
+    } else if( sender == desktopView && [navType isEqualToNumber:[NSNumber numberWithInt:0]] ) {
+        [[mobileView mainFrame] loadRequest:request];
+    }
+    
+    [listener use];
 }
 
 -(BOOL)contains:(NSString *)StrSearchTerm on:(NSString *)StrText {
