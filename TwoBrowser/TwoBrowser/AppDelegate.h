@@ -35,5 +35,6 @@
 
     - (IBAction)toggleControl:(id)sender;
     - (IBAction)showURL:(id)sender;
+    - (IBAction)openURL:(id)sender;
     - (IBAction)clearCache:(id)sender;
 @end

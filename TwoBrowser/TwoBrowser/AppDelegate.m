@@ -306,6 +306,9 @@
     }
 }
 
+- (IBAction)openURL:(id)sender {
+    [[self url] showRelativeToRect:[urlButton bounds] ofView:urlButton preferredEdge:NSMaxYEdge];
+}
 #pragma -- Helper/Conveience functions
 
 - (IBAction)clearCache:(id)sender {
