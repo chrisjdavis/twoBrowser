@@ -7,7 +7,7 @@ Two has been released to the App Store! If you find this code useful, I would ap
 
 Thanks for your support and encouragement, and I hope you find Two useful.
 
-[Two on the App Store!](https://itunes.apple.com/us/app/two/id793878859?mt=12 Two, a respsonive experience)
+[Two on the App Store!](https://itunes.apple.com/us/app/two/id793878859?mt=12 "Two, a respsonive experience")
 
 *In all it's glory*
 
