@@ -23,6 +23,8 @@
     @property (weak) IBOutlet NSSegmentedControl *toggler;
     @property (weak) IBOutlet NSPopUpButton *breakpoints;
     @property (assign) IBOutlet NSPopover *url;
+    @property (assign) IBOutlet NSPopover *mWidthPop;
+    @property (assign) IBOutlet NSPopover *dWidthPop;
     @property (weak) IBOutlet NSButton *urlButton;
     @property (assign) IBOutlet NSPopover *bookmarkAdd;
     @property (weak) IBOutlet NSTextField *pageTitle;
@@ -30,11 +32,17 @@
     @property (weak) IBOutlet NSTextField *mobileWidth;
     @property (weak) IBOutlet NSTextField *desktopWidth;
     @property (weak) IBOutlet NSView *mobileSizeIcon;
+    @property (weak) IBOutlet NSButton *mWidthSetter;
+    @property (weak) IBOutlet NSButton *dWidthSetter;
+    @property (weak) IBOutlet NSTextField *mWidthValue;
+    @property (weak) IBOutlet NSTextField *dWidthValue;
 
     @property (assign) IBOutlet INAppStoreWindow *window;
 
     - (IBAction)toggleControl:(id)sender;
     - (IBAction)showURL:(id)sender;
+    - (IBAction)setMWidth:(id)sender;
+    - (IBAction)setDWidth:(id)sender;
     - (IBAction)openURL:(id)sender;
     - (IBAction)clearCache:(id)sender;
 @end

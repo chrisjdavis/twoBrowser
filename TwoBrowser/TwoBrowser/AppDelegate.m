@@ -9,6 +9,14 @@
 #import "AppDelegate.h"
 #import "INWindowButton.h"
 
+@interface WebInspector : NSObject  { WebView *_webView; }
+    - (id)initWithWebView:(WebView *)webView;
+    - (void)detach:     (id)sender;
+    - (void)show:       (id)sender;
+    - (void)showConsole:(id)sender;
+    - (void)hideConsole:(id)sender;
+@end
+
 @interface AppDelegate() <NSSplitViewDelegate>
 
 - (IBAction)connectURL:(id)sender;
@@ -16,7 +24,9 @@
 
 @end;
 
-@implementation AppDelegate
+NSViewController *webViewController;
+
+@implementation AppDelegate  { WebInspector *_inspector; }
 
 @synthesize window;
 @synthesize textField;
@@ -26,6 +36,7 @@
 @synthesize toggler;
 @synthesize breakpoints;
 @synthesize url;
+@synthesize mWidthPop;
 @synthesize urlButton;
 @synthesize bookmarkAdd;
 @synthesize pageTitle;
@@ -33,6 +44,10 @@
 @synthesize desktopWidth;
 @synthesize mobileWidth;
 @synthesize mobileSizeIcon;
+@synthesize mWidthSetter;
+@synthesize dWidthSetter;
+@synthesize mWidthValue;
+@synthesize dWidthValue;
 
 - (void) awakeFromNib {
     [self loadWelcome];
@@ -45,6 +60,8 @@
     // setup some cache defaults.
     int cacheSizeMemory = 4*1024*1024; // 4MB
     int cacheSizeDisk = 32*1024*1024; // 32MB
+    NSArray *defaultBreaks = nil;
+    
     NSURLCache *sharedCache = [[NSURLCache alloc] initWithMemoryCapacity:cacheSizeMemory diskCapacity:cacheSizeDisk diskPath:@"nsurlcache"];
     [NSURLCache setSharedURLCache:sharedCache];
     
@@ -61,6 +78,19 @@
     
     [theSplits_ setPosition:320 - 3 ofDividerAtIndex:0];
     
+    NSMutableArray *retArray = [[NSMutableArray alloc] initWithArray:((NSMutableArray *) [[NSUserDefaults standardUserDefaults] objectForKey:@"userBreakpoints"])];
+    
+    if ([retArray count] == 0) {
+        defaultBreaks = [NSArray arrayWithObjects:@"Breakpoints", @"320", @"360", @"768", @"800", @"980", nil];
+        NSMutableArray *mutableArray = [[NSMutableArray alloc] initWithArray:defaultBreaks];
+        [[NSUserDefaults standardUserDefaults] setObject:mutableArray forKey:@"userBreakpoints"];
+    } else {
+        defaultBreaks = retArray;
+    }
+    
+    [breakpoints removeAllItems];
+    [breakpoints addItemsWithTitles: defaultBreaks];
+    
     NSRect leftFrame = [mobileView frame];
     NSRect rightFrame = [desktopView frame];
     
@@ -76,15 +106,34 @@
     [desktopView setPolicyDelegate:self];
 }
 
+#pragma mark -- User Infor Saving Times
+
+- (void)handleBreakpointsSave:(NSArray *)breaks {
+    NSMutableArray *retArray = [[NSMutableArray alloc] initWithArray:((NSMutableArray *) [[NSUserDefaults standardUserDefaults] objectForKey:@"userBreakpoints"])];
+    NSLog(@"%@", retArray);
+}
+
 - (void)handleGetURLEvent:(NSAppleEventDescriptor *)event withReplyEvent:(NSAppleEventDescriptor *)replyEvent
 {
     NSString *urlString = [[event paramDescriptorForKeyword:keyDirectObject] stringValue];
     NSString *prefixToRemove = @"two://";
+    NSString *filePrefix = @"file///";
+    NSString *tmpString = nil;
     NSString *newString = nil;
     
+//    NSURLRequest *localRequest = [NSURLRequest requestWithURL:[NSURL fileURLWithPath:localFilePath]];
+    
     if ([urlString hasPrefix:prefixToRemove]) {
-        newString = [urlString substringFromIndex:[prefixToRemove length]];
-        [self connectURL:newString];
+        tmpString = [urlString substringFromIndex:[prefixToRemove length]];
+        
+        if ([tmpString hasPrefix:filePrefix]) {
+            tmpString = [tmpString substringFromIndex:[filePrefix length]];
+            tmpString = [NSString stringWithFormat:@"file:///%@", tmpString];
+            [self connectURL:tmpString];
+        } else {
+            newString = tmpString;
+            [self connectURL:newString];
+        }
     }
 }
 
@@ -219,8 +268,18 @@
     [listener use];
 }
 
+- (IBAction)showInspector:(id)x {
+    _inspector = [WebInspector.alloc initWithWebView:mobileView];
+        [_inspector detach:mobileView];
+        [_inspector showConsole:mobileView];
+   
+    _inspector = [WebInspector.alloc initWithWebView:desktopView];
+        [_inspector detach:desktopView];
+        [_inspector showConsole:desktopView];
+}
+
 -(BOOL)contains:(NSString *)StrSearchTerm on:(NSString *)StrText {
-    return  [StrText rangeOfString:StrSearchTerm options:NSCaseInsensitiveSearch].location==NSNotFound?FALSE:TRUE;
+    return  [StrText rangeOfString:StrSearchTerm options:NSCaseInsensitiveSearch].location == NSNotFound ? FALSE : TRUE;
 }
 
 - (IBAction)connectURL:(id)sender {
@@ -235,7 +294,7 @@
         rUrl = [NSURL URLWithString:urlString];
     }
     
-    if(!rUrl.scheme) {
+    if( [self contains:@"http://" on:urlString] == false ) {
         NSString* modifiedURLString = [NSString stringWithFormat:@"http://%@", urlString];
         rUrl = [NSURL URLWithString:modifiedURLString];
     }
@@ -248,6 +307,7 @@
     [self.progr startAnimation:sender];
     self.urlButton.intValue = 0;
     [self.url close];
+        
     [[mobileView mainFrame] loadRequest:request];
     [[desktopView mainFrame] loadRequest:[NSMutableURLRequest requestWithURL:rUrl]];
     [textField resignFirstResponder];
@@ -292,13 +352,34 @@
 
 #pragma mark -- NSPopOvers
 
-- (BOOL)buttonIsPressed
-{
-    return self.urlButton.intValue == 1;
+- (BOOL)buttonIsPressed:(NSButton *)sender {
+    return sender.intValue == 1;
+}
+
+- (IBAction)setMWidth:(id)sender {
+    if( [self buttonIsPressed:mWidthSetter] ) {
+         NSRect leftFrame = [mobileView frame];
+        [mWidthValue setStringValue:[NSString stringWithFormat: @"%.f", floor(leftFrame.size.width)]];
+        [[self mWidthPop] showRelativeToRect:[sender bounds] ofView:sender preferredEdge:NSMaxYEdge];
+    } else {
+        self.mWidthSetter.intValue = 0;
+        [self.mWidthPop close];
+    }
+}
+
+- (IBAction)setDWidth:(id)sender {
+//    if( [self buttonIsPressed:dWidthSetter] ) {
+//        NSRect leftFrame = [desktopView frame];
+//        [dWidthValue setStringValue:[NSString stringWithFormat: @"%.f", floor(leftFrame.size.width)]];
+//        [[self dWidthPop] showRelativeToRect:[sender bounds] ofView:sender preferredEdge:NSMaxYEdge];
+//    } else {
+//        self.dWidthSetter.intValue = 0;
+//        [self.dWidthPop close];
+//    }
 }
 
 - (IBAction)showURL:(id)sender {
-    if (self.buttonIsPressed) {
+    if( [self buttonIsPressed:urlButton] ) {
         [[self url] showRelativeToRect:[sender bounds] ofView:sender preferredEdge:NSMaxYEdge];
     } else {
         self.urlButton.intValue = 0;
@@ -309,10 +390,45 @@
 - (IBAction)openURL:(id)sender {
     [[self url] showRelativeToRect:[urlButton bounds] ofView:urlButton preferredEdge:NSMaxYEdge];
 }
+
+- (IBAction)manualChangeM:(id)sender {
+    [mobileView setHidden:NO];
+    [theSplits_ animateView:0 toDimension:[sender integerValue] - 3];
+    
+    NSRect leftFrame = [mobileView frame];
+    NSRect rightFrame = [desktopView frame];
+    self.mWidthSetter.intValue = 0;
+    [self.mWidthPop close];
+    [mobileWidth setStringValue:[NSString stringWithFormat: @"%.f", floor(leftFrame.size.width)]];
+    [desktopWidth setStringValue:[NSString stringWithFormat: @"%.f", floor(rightFrame.size.width)]];
+    [theSplits_ adjustSubviews];
+}
+
+- (IBAction)manualChangeD:(id)sender {
+    NSLog(@"%ld", (long)[sender integerValue]);
+    [mobileView setHidden:NO];
+    [theSplits_ animateView:1 toDimension:[sender integerValue] - 3];
+    
+    NSRect leftFrame = [mobileView frame];
+    NSRect rightFrame = [desktopView frame];
+    
+    self.mWidthSetter.intValue = 0;
+    [self.mWidthPop close];
+    
+    [mobileWidth setStringValue:[NSString stringWithFormat: @"%.f", floor(leftFrame.size.width)]];
+    [desktopWidth setStringValue:[NSString stringWithFormat: @"%.f", floor(rightFrame.size.width)]];
+    [theSplits_ adjustSubviews];
+}
+
 #pragma -- Helper/Conveience functions
 
 - (IBAction)clearCache:(id)sender {
     [[NSURLCache sharedURLCache] removeAllCachedResponses];
+}
+
+- (IBAction)newWindow:(id)sender {
+//    NSWindowController *controllerWindow = [[NSWindowController alloc] initWithWindowNibName:@"MainMenu"];
+//    [controllerWindow showWindow:self];
 }
 
 @end
