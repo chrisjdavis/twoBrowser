@@ -17,6 +17,7 @@
     @property (nonatomic, retain) IBOutlet NSTextField *textField;
     @property (weak) IBOutlet WebView *desktopView;
     @property (weak) IBOutlet WebView *mobileView;
+    @property (nonatomic, retain) IBOutlet WebView *aWebView;
     @property (weak) IBOutlet NSView *titleView;
     @property (nonatomic, assign) IBOutlet NSSplitView *theSplits;
     @property (weak) IBOutlet NSProgressIndicator *progr;
@@ -36,8 +37,14 @@
     @property (weak) IBOutlet NSButton *dWidthSetter;
     @property (weak) IBOutlet NSTextField *mWidthValue;
     @property (weak) IBOutlet NSTextField *dWidthValue;
+	@property (weak) IBOutlet NSImageView *imageView;
+    @property (nonatomic, retain) NSBitmapImageRep *bitmap;
+    @property (nonatomic, retain) NSData *pdfData;
+    @property (weak) IBOutlet NSView *accessoryView;
+    @property (weak) IBOutlet NSView *previewTitleView;
 
     @property (assign) IBOutlet INAppStoreWindow *window;
+    @property (assign) IBOutlet NSWindow *previewWindow;
 
     - (IBAction)toggleControl:(id)sender;
     - (IBAction)showURL:(id)sender;

@@ -48,6 +48,12 @@ NSViewController *webViewController;
 @synthesize dWidthSetter;
 @synthesize mWidthValue;
 @synthesize dWidthValue;
+@synthesize bitmap;
+@synthesize pdfData;
+@synthesize imageView;
+@synthesize accessoryView;
+@synthesize previewWindow;
+@synthesize previewTitleView;
 
 - (void) awakeFromNib {
     [self loadWelcome];
@@ -104,6 +110,14 @@ NSViewController *webViewController;
     [theSplits_ setDelegate:self];
     [mobileView setPolicyDelegate:self];
     [desktopView setPolicyDelegate:self];
+    
+    if ([mobileView respondsToSelector:@selector(setMediaStyle:)]) {
+        [mobileView setMediaStyle:@"screen"];
+    }
+    
+    if ([desktopView respondsToSelector:@selector(setMediaStyle:)]) {
+        [desktopView setMediaStyle:@"screen"];
+    }
 }
 
 #pragma mark -- User Infor Saving Times
@@ -405,7 +419,6 @@ NSViewController *webViewController;
 }
 
 - (IBAction)manualChangeD:(id)sender {
-    NSLog(@"%ld", (long)[sender integerValue]);
     [mobileView setHidden:NO];
     [theSplits_ animateView:1 toDimension:[sender integerValue] - 3];
     
@@ -426,9 +439,74 @@ NSViewController *webViewController;
     [[NSURLCache sharedURLCache] removeAllCachedResponses];
 }
 
-- (IBAction)newWindow:(id)sender {
-//    NSWindowController *controllerWindow = [[NSWindowController alloc] initWithWindowNibName:@"MainMenu"];
-//    [controllerWindow showWindow:self];
+- (IBAction)getImageFromWeb:(id)sender {
+    CGSize contentSize = CGSizeMake([[mobileView stringByEvaluatingJavaScriptFromString:@"document.body.scrollWidth;"] floatValue],
+                                    [[mobileView stringByEvaluatingJavaScriptFromString:@"document.body.scrollHeight;"] floatValue]);
+
+    NSView *viewport = [[[mobileView mainFrame] frameView] documentView]; // width/height of html page
+	NSRect viewportBounds = [viewport bounds];
+    NSRect frame = NSMakeRect(0.0, 0.0, contentSize.width, contentSize.height);
+    
+    NSWindow *hiddenWindow = [[NSWindow alloc] initWithContentRect: NSMakeRect( -1000,-1000, contentSize.width, contentSize.height ) styleMask: NSTitledWindowMask | NSClosableWindowMask backing:NSBackingStoreNonretained defer:NO];
+    WebView *hiddenWebView = [[WebView alloc] initWithFrame:frame frameName:@"Hidden.Frame" groupName:nil];
+
+    NSString *hURL = [textField stringValue];
+    [hiddenWindow setContentView:hiddenWebView];
+    
+    [[hiddenWebView mainFrame] loadRequest:[NSURLRequest requestWithURL:[NSURL URLWithString:hURL]]];
+    [hiddenWebView lockFocus];
+    
+    while ([hiddenWebView isLoading]) {
+        [hiddenWebView setNeedsDisplay:NO];
+        [NSApp nextEventMatchingMask:NSAnyEventMask untilDate:[NSDate dateWithTimeIntervalSinceNow:1.0] inMode:NSDefaultRunLoopMode dequeue:YES];
+    }
+    
+    [hiddenWebView setNeedsDisplay:YES];
+    
+    bitmap = [[NSBitmapImageRep alloc] initWithFocusedViewRect:viewportBounds];
+    
+    [hiddenWebView unlockFocus];
+    
+    NSArray *paths = NSSearchPathForDirectoriesInDomains(NSPicturesDirectory, NSUserDomainMask, YES);
+    NSString *theDesktopPath = [paths objectAtIndex:0];
+    
+    NSMutableString *filename = [NSMutableString stringWithFormat:@"%@", [mobileView mainFrameTitle]];
+    
+    [filename replaceOccurrencesOfString:@" - " withString:@"." options:NSLiteralSearch range:NSMakeRange(0, [filename length])];
+    [filename replaceOccurrencesOfString:@" " withString:@"." options:NSLiteralSearch range:NSMakeRange(0, [filename length])];
+    
+    NSString *savePath = [NSString stringWithFormat:@"%@/%@.%@", theDesktopPath, filename, @"png"];
+    [[bitmap representationUsingType:NSPNGFileType properties:nil] writeToFile:savePath atomically:YES];
 }
+
+//- (IBAction)getImageFromWeb:(id)sender {
+//    if ([mobileView respondsToSelector:@selector(setMediaStyle:)]) {
+//        [mobileView setMediaStyle:@"screen"];
+//    }
+//
+//    CGSize contentSize = CGSizeMake([[mobileView stringByEvaluatingJavaScriptFromString:@"document.body.scrollWidth;"] floatValue],
+//                                    [[mobileView stringByEvaluatingJavaScriptFromString:@"document.body.scrollHeight;"] floatValue]);
+//
+//    NSLog(@"%f", contentSize.height);
+//    
+//    CGRect aFrame = [[[mobileView mainFrame] frameView] documentView].frame;
+//
+//    aFrame.size.height = contentSize.height;
+//
+//    pdfData = [[[[mobileView mainFrame] frameView] documentView] dataWithPDFInsideRect:[[[mobileView mainFrame] frameView] documentView].frame];
+//    bitmap = [[NSBitmapImageRep alloc] initWithFocusedViewRect:aFrame];
+//
+//    NSArray *paths = NSSearchPathForDirectoriesInDomains(NSPicturesDirectory, NSUserDomainMask, YES);
+//    NSString *theDesktopPath = [paths objectAtIndex:0];
+//
+//    NSMutableString *filename = [NSMutableString stringWithFormat:@"%@", [mobileView mainFrameTitle]];
+//
+//    [filename replaceOccurrencesOfString:@" - " withString:@"." options:NSLiteralSearch range:NSMakeRange(0, [filename length])];
+//    [filename replaceOccurrencesOfString:@" " withString:@"." options:NSLiteralSearch range:NSMakeRange(0, [filename length])];
+//
+//    NSString *savePath = [NSString stringWithFormat:@"%@/%@.%@", theDesktopPath, filename, @"png"];
+//
+//    [[bitmap representationUsingType:NSPNGFileType properties:nil] writeToFile:savePath atomically:YES];
+//}
 
 @end

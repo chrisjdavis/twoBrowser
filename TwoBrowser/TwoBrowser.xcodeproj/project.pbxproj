@@ -15,6 +15,7 @@
 		0D189C67187A06FD00FD6758 /* ipreview-iphone-large.pdf in Resources */ = {isa = PBXBuildFile; fileRef = 0D189C65187A06FD00FD6758 /* ipreview-iphone-large.pdf */; };
 		0D1CA1A7187DFFF300B4B451 /* welcome.html in Resources */ = {isa = PBXBuildFile; fileRef = 0D1CA1A6187DFFF300B4B451 /* welcome.html */; };
 		0D2880D5187BC534006AFEFA /* gradient@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 0D2880D4187BC534006AFEFA /* gradient@2x.png */; };
+		0D612DAE1885ACB4008A7960 /* button-camera.pdf in Resources */ = {isa = PBXBuildFile; fileRef = 0D612DAD1885ACB4008A7960 /* button-camera.pdf */; };
 		0D7A45B7187DC59B002EFD78 /* app.icon.512.png in Resources */ = {isa = PBXBuildFile; fileRef = 0D7A45B6187DC59B002EFD78 /* app.icon.512.png */; };
 		0D7A45BC187DC769002EFD78 /* app.icon.16.png in Resources */ = {isa = PBXBuildFile; fileRef = 0D7A45B8187DC769002EFD78 /* app.icon.16.png */; };
 		0D7A45BD187DC769002EFD78 /* app.icon.32.png in Resources */ = {isa = PBXBuildFile; fileRef = 0D7A45B9187DC769002EFD78 /* app.icon.32.png */; };
@@ -64,6 +65,7 @@
 		0D189C65187A06FD00FD6758 /* ipreview-iphone-large.pdf */ = {isa = PBXFileReference; lastKnownFileType = image.pdf; path = "ipreview-iphone-large.pdf"; sourceTree = "<group>"; };
 		0D1CA1A6187DFFF300B4B451 /* welcome.html */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.html; path = welcome.html; sourceTree = "<group>"; };
 		0D2880D4187BC534006AFEFA /* gradient@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "gradient@2x.png"; sourceTree = "<group>"; };
+		0D612DAD1885ACB4008A7960 /* button-camera.pdf */ = {isa = PBXFileReference; lastKnownFileType = image.pdf; path = "button-camera.pdf"; sourceTree = "<group>"; };
 		0D7A45B6187DC59B002EFD78 /* app.icon.512.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = app.icon.512.png; sourceTree = "<group>"; };
 		0D7A45B8187DC769002EFD78 /* app.icon.16.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = app.icon.16.png; sourceTree = "<group>"; };
 		0D7A45B9187DC769002EFD78 /* app.icon.32.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = app.icon.32.png; sourceTree = "<group>"; };
@@ -131,6 +133,7 @@
 		0D189C5F1879B0C500FD6758 /* image assets */ = {
 			isa = PBXGroup;
 			children = (
+				0D612DAD1885ACB4008A7960 /* button-camera.pdf */,
 				0D7A45C2187DDA1A002EFD78 /* app.icon.1024.png */,
 				0D7A45C0187DC7DB002EFD78 /* app.icon.64.png */,
 				0D7A45B8187DC769002EFD78 /* app.icon.16.png */,
@@ -353,6 +356,7 @@
 				0DEE5479187B20EC000568A2 /* bottom-files-remote-Template.pdf in Resources */,
 				0D7A45BC187DC769002EFD78 /* app.icon.16.png in Resources */,
 				0D2880D5187BC534006AFEFA /* gradient@2x.png in Resources */,
+				0D612DAE1885ACB4008A7960 /* button-camera.pdf in Resources */,
 				0D189C67187A06FD00FD6758 /* ipreview-iphone-large.pdf in Resources */,
 				0D189C66187A06FD00FD6758 /* ipreview-ipad-large.pdf in Resources */,
 				0D189C5D1879B0BD00FD6758 /* bottombar-browser-double-Template.pdf in Resources */,
@@ -504,7 +508,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_ENTITLEMENTS = TwoBrowser/TwoBrowser.entitlements;
-				CODE_SIGN_IDENTITY = "3rd Party Mac Developer Application: Christopher Davis (4ZP9P6VDD5)";
+				CODE_SIGN_IDENTITY = "Mac Developer";
 				"CODE_SIGN_IDENTITY[sdk=macosx*]" = "3rd Party Mac Developer Application: Christopher Davis (4ZP9P6VDD5)";
 				COMBINE_HIDPI_IMAGES = YES;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
@@ -522,7 +526,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_ENTITLEMENTS = TwoBrowser/TwoBrowser.entitlements;
-				CODE_SIGN_IDENTITY = "3rd Party Mac Developer Application: Christopher Davis (4ZP9P6VDD5)";
+				CODE_SIGN_IDENTITY = "Mac Developer";
 				"CODE_SIGN_IDENTITY[sdk=macosx*]" = "3rd Party Mac Developer Application: Christopher Davis (4ZP9P6VDD5)";
 				COMBINE_HIDPI_IMAGES = YES;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
