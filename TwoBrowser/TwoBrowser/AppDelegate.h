@@ -10,6 +10,7 @@
 #import <WebKit/WebKit.h>
 #import "InAppStoreWindow.h"
 #import "NSSplitView+Animation.h"
+#import "ITProgressBar.h"
 
 @class WebView, SplitView;
 
@@ -17,17 +18,17 @@
     @property (nonatomic, retain) IBOutlet NSTextField *textField;
     @property (weak) IBOutlet WebView *desktopView;
     @property (weak) IBOutlet WebView *mobileView;
-    @property (nonatomic, retain) IBOutlet WebView *aWebView;
     @property (weak) IBOutlet NSView *titleView;
+    @property (weak) IBOutlet NSView *prefsTitleView;
     @property (nonatomic, assign) IBOutlet NSSplitView *theSplits;
     @property (weak) IBOutlet NSProgressIndicator *progr;
     @property (weak) IBOutlet NSSegmentedControl *toggler;
     @property (weak) IBOutlet NSPopUpButton *breakpoints;
+    @property (weak) IBOutlet NSPopUpButton *userAgents;
     @property (assign) IBOutlet NSPopover *url;
     @property (assign) IBOutlet NSPopover *mWidthPop;
     @property (assign) IBOutlet NSPopover *dWidthPop;
     @property (weak) IBOutlet NSButton *urlButton;
-    @property (assign) IBOutlet NSPopover *bookmarkAdd;
     @property (weak) IBOutlet NSTextField *pageTitle;
     @property (weak) IBOutlet NSImageView *pageFavicon;
     @property (weak) IBOutlet NSTextField *mobileWidth;
@@ -41,10 +42,26 @@
     @property (nonatomic, retain) NSBitmapImageRep *bitmap;
     @property (nonatomic, retain) NSData *pdfData;
     @property (weak) IBOutlet NSView *accessoryView;
-    @property (weak) IBOutlet NSView *previewTitleView;
+    @property (weak) IBOutlet NSImageView *imagePreview;
+    @property (weak) IBOutlet NSButton *setBreakpoints;
+    @property (weak) IBOutlet NSButton *setUserAgents;
+    @property (weak) IBOutlet NSTextField *prefSection;
+    @property (nonatomic, retain) NSMutableArray *defaultBreaks;
+    @property (nonatomic, retain) NSMutableArray *defaultAgents;
+    @property (nonatomic, retain) NSArray *savedBreakpoints;
+    @property (nonatomic, retain) NSArray *savedAgents;
+    @property (weak) IBOutlet NSPopUpButton *otherBrowsers;
+    @property (weak) IBOutlet NSButton *shareButton;
+
+    @property (weak) IBOutlet NSTableView *breaksTable;
+    @property (weak) IBOutlet NSTableView *agentsTable;
 
     @property (assign) IBOutlet INAppStoreWindow *window;
-    @property (assign) IBOutlet NSWindow *previewWindow;
+    @property (assign) IBOutlet INAppStoreWindow *prefs;
+    @property (assign) IBOutlet NSWindow *customSheet;
+
+    @property (assign) IBOutlet ITProgressBar *progressBar;
+    @property (assign) IBOutlet NSLayoutConstraint *heightConstraint;
 
     - (IBAction)toggleControl:(id)sender;
     - (IBAction)showURL:(id)sender;

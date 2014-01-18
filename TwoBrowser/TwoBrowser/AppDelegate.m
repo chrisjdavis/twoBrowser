@@ -29,16 +29,19 @@ NSViewController *webViewController;
 @implementation AppDelegate  { WebInspector *_inspector; }
 
 @synthesize window;
+@synthesize prefs;
+@synthesize customSheet;
 @synthesize textField;
+@synthesize prefsTitleView;
 @synthesize mobileView;
 @synthesize desktopView;
 @synthesize theSplits = theSplits_;
 @synthesize toggler;
 @synthesize breakpoints;
+@synthesize userAgents;
 @synthesize url;
 @synthesize mWidthPop;
 @synthesize urlButton;
-@synthesize bookmarkAdd;
 @synthesize pageTitle;
 @synthesize pageFavicon;
 @synthesize desktopWidth;
@@ -51,14 +54,113 @@ NSViewController *webViewController;
 @synthesize bitmap;
 @synthesize pdfData;
 @synthesize imageView;
+@synthesize imagePreview;
 @synthesize accessoryView;
-@synthesize previewWindow;
-@synthesize previewTitleView;
+@synthesize prefSection;
+@synthesize setBreakpoints;
+@synthesize setUserAgents;
+@synthesize defaultBreaks;
+@synthesize savedBreakpoints;
+@synthesize savedAgents;
+@synthesize defaultAgents;
+@synthesize breaksTable;
+@synthesize agentsTable;
+@synthesize progressBar;
+@synthesize otherBrowsers;
+@synthesize shareButton;
+
+NSMetadataQuery *metadataQuery = nil;
+NSArray *browsers = nil;
+
+- (id)init {
+    [self checkPlists];
+    return self;
+}
 
 - (void) awakeFromNib {
     [self loadWelcome];
     NSAppleEventManager *eventManager = [NSAppleEventManager sharedAppleEventManager];
     [eventManager setEventHandler:self andSelector:@selector(handleGetURLEvent:withReplyEvent:) forEventClass:kInternetEventClass andEventID:kAEGetURL];
+
+    [CATransaction begin]; {
+        [progressBar setHidden:TRUE];
+    }[CATransaction commit];
+    
+    [self setUpExternalBrowsers];
+}
+
+- (void)checkPlists {
+    NSArray *namesArray = [NSArray arrayWithObjects:@"Breakpoints", @"320", @"360", @"768", @"800", @"980", nil];
+    NSArray *widthsArray = [NSArray arrayWithObjects:@"Breakpoints", @"320", @"360", @"768", @"800", @"980", nil];
+    
+    NSArray *agentNamesArray = [NSArray arrayWithObjects:@"User Agents",
+                                @"iPhone",
+                                @"Android Chrome",
+                                @"Blackberry Mobile",
+                                @"Windows Phone",
+                                nil];
+    
+    NSArray *agentStringArray = [NSArray arrayWithObjects:@"User Agents",
+                                 @"Mozilla/5.0 (iPhone; U; CPU iPhone OS 4_0 like Mac OS X; en-us) AppleWebKit/532.9 (KHTML, like Gecko) Version/4.0.5 Mobile/8A293 Safari/6531.22.7",
+                                 @"Mozilla/5.0 (Linux; U; Android 4.0.3; ko-kr; LG-L160L Build/IML74K) AppleWebkit/534.30 (KHTML, like Gecko) Version/4.0 Mobile Safari/534.30",
+                                 @"Mozilla/5.0 (BlackBerry; U; BlackBerry 9900; en) AppleWebKit/534.11+ (KHTML, like Gecko) Version/7.1.0.346 Mobile Safari/534.11+",
+                                 @"Mozilla/5.0 (compatible; MSIE 10.0; Windows Phone 8.0; Trident/6.0; IEMobile/10.0; ARM; Touch; NOKIA; Lumia 920)",
+                                 nil];
+    
+    NSArray *path = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);
+    NSString *documentFolder = [path objectAtIndex:0];
+    
+    NSString *filePath = [documentFolder stringByAppendingFormat:@"/breakpoints.plist"];
+    NSString *agentsFilePath = [documentFolder stringByAppendingFormat:@"/agents.plist"];
+    
+    savedBreakpoints = [NSArray arrayWithContentsOfFile:filePath];
+    savedAgents = [NSArray arrayWithContentsOfFile:agentsFilePath];
+    
+    if ([savedBreakpoints count] == 0) {
+        self.defaultBreaks = [[NSMutableArray alloc] init];
+        
+        for (int i = 0; i < [namesArray count]; i++) {
+            NSMutableDictionary *objectDict = [NSMutableDictionary dictionary];
+            NSString *name = (NSString *)[namesArray objectAtIndex:i];
+            NSString *width = (NSString *)[widthsArray objectAtIndex:i];
+            [objectDict setObject:name forKey:@"name"];
+            [objectDict setObject:width forKey:@"width"];
+            [defaultBreaks insertObject:objectDict atIndex:i];
+        }
+        
+        [defaultBreaks writeToFile:filePath atomically:YES];
+    }
+    
+    if ([savedAgents count] == 0) {
+        self.defaultAgents = [[NSMutableArray alloc] init];
+        
+        for (int i = 0; i < [agentNamesArray count]; i++) {
+            NSMutableDictionary *objectDict = [NSMutableDictionary dictionary];
+            NSString *name = (NSString *)[agentNamesArray objectAtIndex:i];
+            NSString *agent = (NSString *)[agentStringArray objectAtIndex:i];
+            [objectDict setObject:name forKey:@"name"];
+            [objectDict setObject:agent forKey:@"agentString"];
+            [defaultAgents insertObject:objectDict atIndex:i];
+        }
+        
+        [defaultAgents writeToFile:agentsFilePath atomically:YES];
+    }
+    
+    [breakpoints removeAllItems];
+    
+    for (int i = 0; i < [defaultBreaks count]; ) {
+        NSDictionary *row = [defaultBreaks objectAtIndex:i];
+        [breakpoints addItemWithTitle:[row objectForKey:@"name"]];
+        i++;
+    }
+    
+    [userAgents removeAllItems];
+    
+    for (int i = 0; i < [defaultAgents count]; ) {
+        NSDictionary *row = [defaultAgents objectAtIndex:i];
+        [userAgents addItemWithTitle:[row objectForKey:@"name"]];
+        i++;
+    }
 }
 
 - (void)applicationDidFinishLaunching:(NSNotification *)aNotification
@@ -66,7 +168,6 @@ NSViewController *webViewController;
     // setup some cache defaults.
     int cacheSizeMemory = 4*1024*1024; // 4MB
     int cacheSizeDisk = 32*1024*1024; // 32MB
-    NSArray *defaultBreaks = nil;
     
     NSURLCache *sharedCache = [[NSURLCache alloc] initWithMemoryCapacity:cacheSizeMemory diskCapacity:cacheSizeDisk diskPath:@"nsurlcache"];
     [NSURLCache setSharedURLCache:sharedCache];
@@ -84,18 +185,30 @@ NSViewController *webViewController;
     
     [theSplits_ setPosition:320 - 3 ofDividerAtIndex:0];
     
-    NSMutableArray *retArray = [[NSMutableArray alloc] initWithArray:((NSMutableArray *) [[NSUserDefaults standardUserDefaults] objectForKey:@"userBreakpoints"])];
+    NSArray *path = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);
+    NSString *documentFolder = [path objectAtIndex:0];
+
+    NSString *filePath = [documentFolder stringByAppendingFormat:@"/breakpoints.plist"];
+    NSString *agentsFilePath = [documentFolder stringByAppendingFormat:@"/agents.plist"];
     
-    if ([retArray count] == 0) {
-        defaultBreaks = [NSArray arrayWithObjects:@"Breakpoints", @"320", @"360", @"768", @"800", @"980", nil];
-        NSMutableArray *mutableArray = [[NSMutableArray alloc] initWithArray:defaultBreaks];
-        [[NSUserDefaults standardUserDefaults] setObject:mutableArray forKey:@"userBreakpoints"];
-    } else {
-        defaultBreaks = retArray;
-    }
+    savedBreakpoints = [NSArray arrayWithContentsOfFile:filePath];
+    savedAgents = [NSArray arrayWithContentsOfFile:agentsFilePath];
     
     [breakpoints removeAllItems];
-    [breakpoints addItemsWithTitles: defaultBreaks];
+    
+    for (int i = 0; i < [savedBreakpoints count]; ) {
+        NSDictionary *row = [savedBreakpoints objectAtIndex:i];
+        [breakpoints addItemWithTitle:[row objectForKey:@"name"]];
+        i++;
+    }
+    
+    [userAgents removeAllItems];
+
+    for (int i = 0; i < [savedAgents count]; ) {
+        NSDictionary *row = [savedAgents objectAtIndex:i];
+        [userAgents addItemWithTitle:[row objectForKey:@"name"]];
+        i++;
+    }
     
     NSRect leftFrame = [mobileView frame];
     NSRect rightFrame = [desktopView frame];
@@ -106,21 +219,16 @@ NSViewController *webViewController;
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(webViewDidStartLoad:)name:WebViewProgressStartedNotification object:nil];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(webViewFinishedLoading:)name:WebViewProgressFinishedNotification object:nil];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(didResize:)name:NSSplitViewDidResizeSubviewsNotification object: nil];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(queryDidReceiveNotification:) name:NSMetadataQueryDidUpdateNotification object:metadataQuery];
     
     [theSplits_ setDelegate:self];
     [mobileView setPolicyDelegate:self];
     [desktopView setPolicyDelegate:self];
-    
-    if ([mobileView respondsToSelector:@selector(setMediaStyle:)]) {
-        [mobileView setMediaStyle:@"screen"];
-    }
-    
-    if ([desktopView respondsToSelector:@selector(setMediaStyle:)]) {
-        [desktopView setMediaStyle:@"screen"];
-    }
 }
 
-#pragma mark -- User Infor Saving Times
+#pragma mark -- TableView Methods.
+
+#pragma mark -- User Info Saving Times
 
 - (void)handleBreakpointsSave:(NSArray *)breaks {
     NSMutableArray *retArray = [[NSMutableArray alloc] initWithArray:((NSMutableArray *) [[NSUserDefaults standardUserDefaults] objectForKey:@"userBreakpoints"])];
@@ -154,37 +262,12 @@ NSViewController *webViewController;
 #pragma mark -- respsonsive breakpoints
 
 - (IBAction)chooseBreakpoint:(id)sender {
-    switch (breakpoints.indexOfSelectedItem) {
-        case 1:
-            [mobileView setHidden:NO];
-            [theSplits_ animateView:0 toDimension:320 - 3];
-            break;
-        case 2:
-            [mobileView setHidden:NO];
-            [theSplits_ animateView:0 toDimension:360 - 3];
-            break;
-        case 3:
-            [mobileView setHidden:NO];
-            [theSplits_ animateView:0 toDimension:768 - 3];
-            break;
-        case 4:
-            [mobileView setHidden:NO];
-            [theSplits_ animateView:0 toDimension:800 - 3];
-            break;
-        case 5:
-            [mobileView setHidden:NO];
-            [theSplits_ animateView:0 toDimension:980 - 3];
-            break;
-        default:
-            [mobileView setHidden:NO];
-            [theSplits_ animateView:0 toDimension:320 - 3];
-        break;
-    }
-    
-    NSInteger indexOfSelectedItem = [breakpoints indexOfSelectedItem];
-    
-    [breakpoints selectItemAtIndex:indexOfSelectedItem];
-    
+    NSDictionary *width = [savedBreakpoints objectAtIndex:breakpoints.indexOfSelectedItem];
+    NSString *size = [width objectForKey:@"width"];
+
+    [mobileView setHidden:NO];
+    [theSplits_ animateView:0 toDimension:size.intValue - 3];
+        
     toggler.selectedSegment = 0;
     
     NSRect leftFrame = [mobileView frame];
@@ -193,6 +276,21 @@ NSViewController *webViewController;
     [mobileWidth setStringValue:[NSString stringWithFormat: @"%.f", floor(leftFrame.size.width)]];
     [desktopWidth setStringValue:[NSString stringWithFormat: @"%.f", floor(rightFrame.size.width)]];
     [theSplits_ adjustSubviews];
+}
+
+- (IBAction)chooseUA:(id)sender {
+    NSURL *rUrl = [NSURL URLWithString:[mobileView mainFrameURL]];
+    NSDictionary *agent = [savedAgents objectAtIndex:userAgents.indexOfSelectedItem];
+    NSString* ua = [agent objectForKey:@"agentString"];
+    NSMutableURLRequest *request = [[NSMutableURLRequest alloc] initWithURL:rUrl];
+    
+    [mobileView setCustomUserAgent:ua];
+
+    [CATransaction begin]; {
+        [progressBar setHidden:FALSE];
+    }[CATransaction commit];
+    
+    [[mobileView mainFrame] loadRequest:request];
 }
 
 #pragma mark -- SplitVIiew crap
@@ -250,12 +348,15 @@ NSViewController *webViewController;
 }
 
 - (void)webViewDidStartLoad:(NSNotification *)notification {
-    [pageFavicon setHidden:YES];
-    [self.progr startAnimation:[notification object]];
+    [CATransaction begin]; {
+        [progressBar setHidden:FALSE];
+    }[CATransaction commit];
 }
 
 - (void)webViewFinishedLoading:(NSNotification *)notification {
-    [self.progr stopAnimation:[notification object]];
+    [CATransaction begin]; {
+        [progressBar setHidden:TRUE];
+    }[CATransaction commit];
     
     NSString * TitleString = [NSString stringWithFormat:@"Testing %@", [[notification object] mainFrameTitle]];
     NSString * newURLString = [NSString stringWithFormat:@"%@", [[notification object] mainFrameURL]];
@@ -265,7 +366,6 @@ NSViewController *webViewController;
         [textField setStringValue:newURLString];
     }
     
-    [pageFavicon setHidden:NO];
     [pageTitle setStringValue:TitleString];
     [pageFavicon setImage:[[notification object] mainFrameIcon]];
 }
@@ -315,10 +415,13 @@ NSViewController *webViewController;
     
     NSString* kMobileSafariUserAgent = @"Mozilla/5.0 (iPhone; U; CPU iPhone OS 4_0 like Mac OS X; en-us) AppleWebKit/532.9 (KHTML, like Gecko) Version/4.0.5 Mobile/8A293 Safari/6531.22.7";
     NSMutableURLRequest *request = [NSMutableURLRequest requestWithURL:rUrl];
-    [request setValue:kMobileSafariUserAgent forHTTPHeaderField:@"User-Agent"];
     
-    [pageFavicon setHidden:YES];
-    [self.progr startAnimation:sender];
+    [mobileView setCustomUserAgent:kMobileSafariUserAgent];
+    
+    [CATransaction begin]; {
+        [progressBar setHidden:FALSE];
+    }[CATransaction commit];
+    
     self.urlButton.intValue = 0;
     [self.url close];
         
@@ -402,7 +505,8 @@ NSViewController *webViewController;
 }
 
 - (IBAction)openURL:(id)sender {
-    [[self url] showRelativeToRect:[urlButton bounds] ofView:urlButton preferredEdge:NSMaxYEdge];
+    [textField selectText:self];
+//    [[self url] showRelativeToRect:[urlButton bounds] ofView:urlButton preferredEdge:NSMaxYEdge];
 }
 
 - (IBAction)manualChangeM:(id)sender {
@@ -467,6 +571,89 @@ NSViewController *webViewController;
     
     [hiddenWebView unlockFocus];
     
+    NSImage *dispImage = [[NSImage alloc] initWithData:[bitmap TIFFRepresentation]];
+	// Display the image
+	[imagePreview setImage:dispImage];
+    
+    float payload;
+    
+    [shareButton sendActionOn:NSLeftMouseDownMask];
+    
+    [NSApp beginSheet:customSheet modalForWindow:[self window] modalDelegate:self didEndSelector:@selector(didEndSheet:returnCode:contextInfo:) contextInfo:(void *)[NSNumber numberWithFloat:payload]];
+}
+
+- (IBAction)saveImage:(id)sender {
+    NSSavePanel *save = [NSSavePanel savePanel];
+    
+    NSMutableString *filenameString = [NSMutableString stringWithFormat:@"%@", [mobileView mainFrameTitle]];
+    
+    [filenameString replaceOccurrencesOfString:@" - " withString:@"" options:NSLiteralSearch range:NSMakeRange(0, [filenameString length])];
+    [filenameString replaceOccurrencesOfString:@" " withString:@"" options:NSLiteralSearch range:NSMakeRange(0, [filenameString length])];
+    [filenameString replaceOccurrencesOfString:@"," withString:@"" options:NSLiteralSearch range:NSMakeRange(0, [filenameString length])];
+    
+    [save setAllowedFileTypes: [NSArray arrayWithObject: @"png"]];
+	[save setNameFieldStringValue:filenameString];
+    
+    NSUInteger result;
+    
+    result = [save runModal];
+    
+    if (result == NSOKButton) {
+        NSString *selectedFile = [save filename];
+        NSString *savePath = selectedFile;
+        
+        if( [self contains:@".png" on:savePath] == false ) {
+            savePath = [NSString stringWithFormat:@"%@.%@", savePath, @"png"];
+        }
+
+        NSLog(@"%@", savePath);
+        
+        [[bitmap representationUsingType:NSPNGFileType properties:nil] writeToFile:savePath atomically:YES];
+        [customSheet orderOut:self];
+        [NSApp endSheet:customSheet returnCode:([sender tag] == 1) ? NSOKButton : NSCancelButton];
+    }
+}
+
+- (IBAction)closeMyPanel:(id)sender {
+    [customSheet orderOut:self];
+    [NSApp endSheet:customSheet returnCode:([sender tag] == 1) ? NSOKButton : NSCancelButton];
+}
+
+- (void)didEndSheet:(NSWindow *)sheet returnCode:(int)returnCode contextInfo:(void *)contextInfo {
+    float payload;
+    
+    if (returnCode == NSCancelButton) return;
+    payload = [(NSNumber *)CFBridgingRelease(contextInfo) floatValue];
+}
+
+- (IBAction)breaksChosen:(id)sender {
+    [prefSection setStringValue:@"Breakpoints"];
+    [setBreakpoints setImage:[NSImage imageNamed:@"ruler.on"]];
+}
+
+- (IBAction)userAgentsChosen:(id)sender {
+    [prefSection setStringValue:@"User Agents"];
+    [setBreakpoints setImage:[NSImage imageNamed:@"length-512"]];
+}
+
+- (void)checkIfCloudAvaliable {
+    NSURL *ubiquityContainerURL = [[[NSFileManager defaultManager] URLForUbiquityContainerIdentifier:nil] URLByAppendingPathComponent:@"Documents"];
+
+    if (ubiquityContainerURL == nil) {
+        NSDictionary *dict = [NSDictionary dictionaryWithObjectsAndKeys: NSLocalizedString(@"iCloud does not appear to be configured.", @""), NSLocalizedFailureReasonErrorKey, nil];
+        NSError *error = [NSError errorWithDomain:@"Application" code:404 userInfo:dict];
+        NSLog(@"%@", error);
+        return;
+    }
+}
+
+-(IBAction) saveToiCould:(id)sender {
+    NSURL *ubiquitousURL = nil;
+    
+    [self checkIfCloudAvaliable];
+    
+    ubiquitousURL = [[NSFileManager defaultManager] URLForUbiquityContainerIdentifier:nil];
+    
     NSArray *paths = NSSearchPathForDirectoriesInDomains(NSPicturesDirectory, NSUserDomainMask, YES);
     NSString *theDesktopPath = [paths objectAtIndex:0];
     
@@ -474,39 +661,67 @@ NSViewController *webViewController;
     
     [filename replaceOccurrencesOfString:@" - " withString:@"." options:NSLiteralSearch range:NSMakeRange(0, [filename length])];
     [filename replaceOccurrencesOfString:@" " withString:@"." options:NSLiteralSearch range:NSMakeRange(0, [filename length])];
-    
     NSString *savePath = [NSString stringWithFormat:@"%@/%@.%@", theDesktopPath, filename, @"png"];
+    
     [[bitmap representationUsingType:NSPNGFileType properties:nil] writeToFile:savePath atomically:YES];
+    
+    metadataQuery = [[NSMetadataQuery alloc] init];
+    [metadataQuery setPredicate:[NSPredicate predicateWithFormat:@"%K LIKE '*'", NSMetadataItemFSNameKey]];
+    [metadataQuery startQuery];
+    
+    NSURL *destinationURL = [ubiquitousURL URLByAppendingPathComponent:[NSString stringWithFormat:@"%@/%@.%@", @"Documents", filename, @"png"]];
+    NSURL *localURL = [NSURL URLWithString:[savePath stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding]];
+
+    dispatch_queue_t globalQueue = dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0);
+    dispatch_async(globalQueue, ^(void) {
+        NSError *uploadError = nil;
+        NSError *removalError = nil;
+        
+        BOOL success = [[NSFileManager defaultManager] setUbiquitous:YES itemAtURL:localURL destinationURL:destinationURL error:&uploadError];
+        if (success) {
+            [[NSFileManager defaultManager] removeItemAtPath:savePath error:&removalError];
+            [customSheet orderOut:self];
+            [NSApp endSheet:customSheet returnCode:([sender tag] == 1) ? NSOKButton : NSCancelButton];
+        } else {
+            NSLog(@"%@", uploadError);
+        }
+    });
 }
 
-//- (IBAction)getImageFromWeb:(id)sender {
-//    if ([mobileView respondsToSelector:@selector(setMediaStyle:)]) {
-//        [mobileView setMediaStyle:@"screen"];
-//    }
-//
-//    CGSize contentSize = CGSizeMake([[mobileView stringByEvaluatingJavaScriptFromString:@"document.body.scrollWidth;"] floatValue],
-//                                    [[mobileView stringByEvaluatingJavaScriptFromString:@"document.body.scrollHeight;"] floatValue]);
-//
-//    NSLog(@"%f", contentSize.height);
-//    
-//    CGRect aFrame = [[[mobileView mainFrame] frameView] documentView].frame;
-//
-//    aFrame.size.height = contentSize.height;
-//
-//    pdfData = [[[[mobileView mainFrame] frameView] documentView] dataWithPDFInsideRect:[[[mobileView mainFrame] frameView] documentView].frame];
-//    bitmap = [[NSBitmapImageRep alloc] initWithFocusedViewRect:aFrame];
-//
-//    NSArray *paths = NSSearchPathForDirectoriesInDomains(NSPicturesDirectory, NSUserDomainMask, YES);
-//    NSString *theDesktopPath = [paths objectAtIndex:0];
-//
-//    NSMutableString *filename = [NSMutableString stringWithFormat:@"%@", [mobileView mainFrameTitle]];
-//
-//    [filename replaceOccurrencesOfString:@" - " withString:@"." options:NSLiteralSearch range:NSMakeRange(0, [filename length])];
-//    [filename replaceOccurrencesOfString:@" " withString:@"." options:NSLiteralSearch range:NSMakeRange(0, [filename length])];
-//
-//    NSString *savePath = [NSString stringWithFormat:@"%@/%@.%@", theDesktopPath, filename, @"png"];
-//
-//    [[bitmap representationUsingType:NSPNGFileType properties:nil] writeToFile:savePath atomically:YES];
-//}
+- (void)queryDidReceiveNotification:(NSNotification *)notification {
+    NSArray *results = [metadataQuery results];
+    for(NSMetadataItem *item in results) {
+        NSString *filename = [item valueForAttribute:NSMetadataItemDisplayNameKey];
+        NSNumber *filesize = [item valueForAttribute:NSMetadataItemFSSizeKey];
+        NSDate *updated = [item valueForAttribute:NSMetadataItemFSContentChangeDateKey];
+        NSLog(@"%@ (%@ bytes, updated %@)", filename, filesize, updated);
+    }
+}
+
+- (void)setUpExternalBrowsers {
+    browsers = CFBridgingRelease(LSCopyAllHandlersForURLScheme(CFSTR("https")));
+        
+    for (int i = 0; i < [browsers count]; ) {
+        NSDictionary *row = [browsers objectAtIndex:i];
+
+        NSString *path = [[NSWorkspace sharedWorkspace] absolutePathForAppBundleWithIdentifier:[NSString stringWithFormat:@"%@", row]];
+        NSString *appName = [[path componentsSeparatedByString:@"/"] lastObject];
+        NSString *name = [appName stringByReplacingOccurrencesOfString:@".app" withString:@""];
+        
+        [otherBrowsers addItemWithTitle:name];
+        i++;
+    }
+}
+
+- (IBAction)chooseExternalBrowser:(id)sender {
+    NSDictionary *name = [browsers objectAtIndex:otherBrowsers.indexOfSelectedItem - 1];
+    NSString *appid = [NSString stringWithFormat:@"%@", name];
+    
+    NSWorkspace * ws = [NSWorkspace sharedWorkspace];
+    NSURL *nUrl = [NSURL URLWithString:[textField stringValue]];
+    NSArray *urlArray = [NSArray arrayWithObjects:nUrl,nil];
+    
+    [ws openURLs: urlArray withAppBundleIdentifier:appid options: NSWorkspaceLaunchDefault additionalEventParamDescriptor: NULL launchIdentifiers: NULL];
+}
 
 @end
