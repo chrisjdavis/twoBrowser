@@ -39,7 +39,6 @@ NSViewController *webViewController;
 @synthesize toggler;
 @synthesize breakpoints;
 @synthesize userAgents;
-@synthesize url;
 @synthesize mWidthPop;
 @synthesize urlButton;
 @synthesize pageTitle;
@@ -85,23 +84,19 @@ NSArray *browsers = nil;
     [CATransaction begin]; {
         [progressBar setHidden:TRUE];
     }[CATransaction commit];
-    
-    [self setUpExternalBrowsers];
 }
 
 - (void)checkPlists {
-    NSArray *namesArray = [NSArray arrayWithObjects:@"Breakpoints", @"320", @"360", @"768", @"800", @"980", nil];
-    NSArray *widthsArray = [NSArray arrayWithObjects:@"Breakpoints", @"320", @"360", @"768", @"800", @"980", nil];
+    NSArray *namesArray = [NSArray arrayWithObjects:@"320", @"360", @"768", @"800", @"980", nil];
+    NSArray *widthsArray = [NSArray arrayWithObjects:@"320", @"360", @"768", @"800", @"980", nil];
     
-    NSArray *agentNamesArray = [NSArray arrayWithObjects:@"User Agents",
-                                @"iPhone",
+    NSArray *agentNamesArray = [NSArray arrayWithObjects:@"iPhone",
                                 @"Android Chrome",
                                 @"Blackberry Mobile",
                                 @"Windows Phone",
                                 nil];
     
-    NSArray *agentStringArray = [NSArray arrayWithObjects:@"User Agents",
-                                 @"Mozilla/5.0 (iPhone; U; CPU iPhone OS 4_0 like Mac OS X; en-us) AppleWebKit/532.9 (KHTML, like Gecko) Version/4.0.5 Mobile/8A293 Safari/6531.22.7",
+    NSArray *agentStringArray = [NSArray arrayWithObjects:@"Mozilla/5.0 (iPhone; U; CPU iPhone OS 4_0 like Mac OS X; en-us) AppleWebKit/532.9 (KHTML, like Gecko) Version/4.0.5 Mobile/8A293 Safari/6531.22.7",
                                  @"Mozilla/5.0 (Linux; U; Android 4.0.3; ko-kr; LG-L160L Build/IML74K) AppleWebkit/534.30 (KHTML, like Gecko) Version/4.0 Mobile Safari/534.30",
                                  @"Mozilla/5.0 (BlackBerry; U; BlackBerry 9900; en) AppleWebKit/534.11+ (KHTML, like Gecko) Version/7.1.0.346 Mobile Safari/534.11+",
                                  @"Mozilla/5.0 (compatible; MSIE 10.0; Windows Phone 8.0; Trident/6.0; IEMobile/10.0; ARM; Touch; NOKIA; Lumia 920)",
@@ -165,6 +160,7 @@ NSArray *browsers = nil;
 
 - (void)applicationDidFinishLaunching:(NSNotification *)aNotification
 {
+    [self setUpExternalBrowsers];
     // setup some cache defaults.
     int cacheSizeMemory = 4*1024*1024; // 4MB
     int cacheSizeDisk = 32*1024*1024; // 32MB
@@ -182,6 +178,8 @@ NSArray *browsers = nil;
     self.titleView.frame = self.window.titleBarView.bounds;
     self.titleView.autoresizingMask = NSViewWidthSizable | NSViewHeightSizable;
     [self.window.titleBarView addSubview:self.titleView];
+    self.window.title = @"Two";
+    self.window.showsTitle = NO;
     
     [theSplits_ setPosition:320 - 3 ofDividerAtIndex:0];
     
@@ -196,18 +194,16 @@ NSArray *browsers = nil;
     
     [breakpoints removeAllItems];
     
-    for (int i = 0; i < [savedBreakpoints count]; ) {
+    for (int i = 0; i < [savedBreakpoints count]; i++ ) {
         NSDictionary *row = [savedBreakpoints objectAtIndex:i];
         [breakpoints addItemWithTitle:[row objectForKey:@"name"]];
-        i++;
     }
     
     [userAgents removeAllItems];
 
-    for (int i = 0; i < [savedAgents count]; ) {
+    for (int i = 0; i < [savedAgents count]; i++ ) {
         NSDictionary *row = [savedAgents objectAtIndex:i];
         [userAgents addItemWithTitle:[row objectForKey:@"name"]];
-        i++;
     }
     
     NSRect leftFrame = [mobileView frame];
@@ -226,8 +222,6 @@ NSArray *browsers = nil;
     [desktopView setPolicyDelegate:self];
 }
 
-#pragma mark -- TableView Methods.
-
 #pragma mark -- User Info Saving Times
 
 - (void)handleBreakpointsSave:(NSArray *)breaks {
@@ -242,8 +236,6 @@ NSArray *browsers = nil;
     NSString *filePrefix = @"file///";
     NSString *tmpString = nil;
     NSString *newString = nil;
-    
-//    NSURLRequest *localRequest = [NSURLRequest requestWithURL:[NSURL fileURLWithPath:localFilePath]];
     
     if ([urlString hasPrefix:prefixToRemove]) {
         tmpString = [urlString substringFromIndex:[prefixToRemove length]];
@@ -277,6 +269,8 @@ NSArray *browsers = nil;
     [desktopWidth setStringValue:[NSString stringWithFormat: @"%.f", floor(rightFrame.size.width)]];
     [theSplits_ adjustSubviews];
 }
+
+#pragma mark -- Select a UA
 
 - (IBAction)chooseUA:(id)sender {
     NSURL *rUrl = [NSURL URLWithString:[mobileView mainFrameURL]];
@@ -575,7 +569,7 @@ NSArray *browsers = nil;
 	// Display the image
 	[imagePreview setImage:dispImage];
     
-    float payload;
+    float payload = 1;
     
     [shareButton sendActionOn:NSLeftMouseDownMask];
     
@@ -605,9 +599,7 @@ NSArray *browsers = nil;
         if( [self contains:@".png" on:savePath] == false ) {
             savePath = [NSString stringWithFormat:@"%@.%@", savePath, @"png"];
         }
-
-        NSLog(@"%@", savePath);
-        
+       
         [[bitmap representationUsingType:NSPNGFileType properties:nil] writeToFile:savePath atomically:YES];
         [customSheet orderOut:self];
         [NSApp endSheet:customSheet returnCode:([sender tag] == 1) ? NSOKButton : NSCancelButton];
@@ -620,10 +612,7 @@ NSArray *browsers = nil;
 }
 
 - (void)didEndSheet:(NSWindow *)sheet returnCode:(int)returnCode contextInfo:(void *)contextInfo {
-    float payload;
-    
     if (returnCode == NSCancelButton) return;
-    payload = [(NSNumber *)CFBridgingRelease(contextInfo) floatValue];
 }
 
 - (IBAction)breaksChosen:(id)sender {
@@ -640,9 +629,8 @@ NSArray *browsers = nil;
     NSURL *ubiquityContainerURL = [[[NSFileManager defaultManager] URLForUbiquityContainerIdentifier:nil] URLByAppendingPathComponent:@"Documents"];
 
     if (ubiquityContainerURL == nil) {
-        NSDictionary *dict = [NSDictionary dictionaryWithObjectsAndKeys: NSLocalizedString(@"iCloud does not appear to be configured.", @""), NSLocalizedFailureReasonErrorKey, nil];
-        NSError *error = [NSError errorWithDomain:@"Application" code:404 userInfo:dict];
-        NSLog(@"%@", error);
+//        NSDictionary *dict = [NSDictionary dictionaryWithObjectsAndKeys: NSLocalizedString(@"iCloud does not appear to be configured.", @""), NSLocalizedFailureReasonErrorKey, nil];
+//        NSError *error = [NSError errorWithDomain:@"Application" code:404 userInfo:dict];
         return;
     }
 }
@@ -700,16 +688,18 @@ NSArray *browsers = nil;
 
 - (void)setUpExternalBrowsers {
     browsers = CFBridgingRelease(LSCopyAllHandlersForURLScheme(CFSTR("https")));
-        
-    for (int i = 0; i < [browsers count]; ) {
+    NSFileManager *fileManager	= [NSFileManager defaultManager];
+    
+    for (int i = 0; i < [browsers count]; i++ ) {
         NSDictionary *row = [browsers objectAtIndex:i];
 
         NSString *path = [[NSWorkspace sharedWorkspace] absolutePathForAppBundleWithIdentifier:[NSString stringWithFormat:@"%@", row]];
-        NSString *appName = [[path componentsSeparatedByString:@"/"] lastObject];
-        NSString *name = [appName stringByReplacingOccurrencesOfString:@".app" withString:@""];
         
-        [otherBrowsers addItemWithTitle:name];
-        i++;
+        if ([fileManager fileExistsAtPath:path]) {
+            NSString *appName = [[path componentsSeparatedByString:@"/"] lastObject];
+            NSString *name = [appName stringByReplacingOccurrencesOfString:@".app" withString:@""];
+            [otherBrowsers addItemWithTitle:name];
+        }
     }
 }
 

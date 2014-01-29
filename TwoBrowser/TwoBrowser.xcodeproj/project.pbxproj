@@ -609,6 +609,10 @@
 				CODE_SIGN_IDENTITY = "Mac Developer";
 				"CODE_SIGN_IDENTITY[sdk=macosx*]" = "Mac Developer";
 				COMBINE_HIDPI_IMAGES = YES;
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"/Volumes/BigDump!/development/github/twoBrowser/TwoBrowser",
+				);
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "TwoBrowser/TwoBrowser-Prefix.pch";
 				INFOPLIST_FILE = "TwoBrowser/TwoBrowser-Info.plist";
@@ -627,6 +631,10 @@
 				CODE_SIGN_IDENTITY = "Mac Developer";
 				"CODE_SIGN_IDENTITY[sdk=macosx*]" = "Mac Developer";
 				COMBINE_HIDPI_IMAGES = YES;
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"/Volumes/BigDump!/development/github/twoBrowser/TwoBrowser",
+				);
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "TwoBrowser/TwoBrowser-Prefix.pch";
 				INFOPLIST_FILE = "TwoBrowser/TwoBrowser-Info.plist";

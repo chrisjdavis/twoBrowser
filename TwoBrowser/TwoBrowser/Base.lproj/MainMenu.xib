@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="3.0" toolsVersion="4514" systemVersion="13C39" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none">
+<document type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="3.0" toolsVersion="4514" systemVersion="13C44" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none">
     <dependencies>
         <deployment defaultVersion="1080" identifier="macosx"/>
         <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="4514"/>
@@ -519,7 +519,7 @@
                     <imageCell key="cell" refusesFirstResponder="YES" alignment="left" image="pathbar-edge" id="aa1-Wp-iCl"/>
                 </imageView>
                 <imageView horizontalHuggingPriority="251" verticalHuggingPriority="251" id="Ubo-py-yuR">
-                    <rect key="frame" x="476" y="17" width="20" height="21"/>
+                    <rect key="frame" x="480" y="17" width="20" height="21"/>
                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                     <imageCell key="cell" refusesFirstResponder="YES" alignment="left" imageScaling="proportionallyDown" id="70T-1K-RAP"/>
                 </imageView>
@@ -551,12 +551,12 @@
                     </connections>
                 </popUpButton>
                 <imageView horizontalHuggingPriority="251" verticalHuggingPriority="251" id="yrv-zJ-hBd">
-                    <rect key="frame" x="459" y="3" width="17" height="48"/>
+                    <rect key="frame" x="463" y="4" width="17" height="48"/>
                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                     <imageCell key="cell" refusesFirstResponder="YES" alignment="left" image="pathbar-edge" id="MCE-0R-D9j"/>
                 </imageView>
                 <textField focusRingType="exterior" verticalHuggingPriority="750" id="yNa-ZG-X3f">
-                    <rect key="frame" x="504" y="17" width="344" height="22"/>
+                    <rect key="frame" x="508" y="17" width="340" height="22"/>
                     <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMinY="YES"/>
                     <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" selectable="YES" editable="YES" sendsActionOnEndEditing="YES" state="on" borderStyle="bezel" focusRingType="exterior" usesSingleLineMode="YES" id="uNm-Oh-uXG">
                         <font key="font" metaFont="system"/>
@@ -581,14 +581,14 @@
                     </connections>
                 </button>
                 <popUpButton verticalHuggingPriority="750" id="1Iw-rp-oOQ">
-                    <rect key="frame" x="310" y="15" width="147" height="25"/>
+                    <rect key="frame" x="311" y="15" width="147" height="25"/>
                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
-                    <popUpButtonCell key="cell" type="roundTextured" title="User Agent" bezelStyle="texturedRounded" alignment="center" lineBreakMode="truncatingTail" state="on" borderStyle="border" imageScaling="proportionallyDown" inset="2" selectedItem="kSG-hs-jru" id="8xa-0K-L2N">
+                    <popUpButtonCell key="cell" type="roundTextured" bezelStyle="texturedRounded" alignment="center" lineBreakMode="truncatingTail" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="8xa-0K-L2N">
                         <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
                         <font key="font" metaFont="menu"/>
                         <menu key="menu" title="OtherViews" id="POP-an-IWw">
                             <items>
-                                <menuItem title="User Agent" state="on" id="kSG-hs-jru"/>
+                                <menuItem id="kSG-hs-jru"/>
                                 <menuItem title="Item 2" id="imo-oe-CHY"/>
                                 <menuItem title="Item 3" id="Dtx-5e-Bas"/>
                             </items>
