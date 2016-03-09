@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="3.0" toolsVersion="4514" systemVersion="13C44" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none">
+<document type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="3.0" toolsVersion="9532" systemVersion="15D21" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none">
     <dependencies>
-        <deployment defaultVersion="1080" identifier="macosx"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="4514"/>
-        <plugIn identifier="com.apple.WebKitIBPlugin" version="3338"/>
+        <deployment identifier="macosx"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="9532"/>
+        <plugIn identifier="com.apple.WebKitIBPlugin" version="9532"/>
     </dependencies>
     <objects>
         <customObject id="-2" userLabel="File's Owner" customClass="NSApplication">
@@ -12,7 +12,7 @@
             </connections>
         </customObject>
         <customObject id="-1" userLabel="First Responder" customClass="FirstResponder"/>
-        <customObject id="-3" userLabel="Application"/>
+        <customObject id="-3" userLabel="Application" customClass="NSObject"/>
         <customObject id="Voe-Tx-rLC" customClass="AppDelegate">
             <connections>
                 <outlet property="agentsTable" destination="2PL-Is-sMr" id="GLp-Ux-k2g"/>
@@ -34,7 +34,6 @@
                 <outlet property="prefsTitleView" destination="CJS-nb-xp7" id="VAe-E5-dko"/>
                 <outlet property="previewWindow" destination="U8f-eq-T6g" id="tpp-0b-fbT"/>
                 <outlet property="progressBar" destination="RHw-lN-nJ1" id="Lea-Ni-Qul"/>
-                <outlet property="splitContiainer" destination="v7F-rw-MIY" id="jlX-EO-tH5"/>
                 <outlet property="textField" destination="yNa-ZG-X3f" id="6V4-lL-6XM"/>
                 <outlet property="theSplits" destination="v7F-rw-MIY" id="0kQ-9b-vd3"/>
                 <outlet property="titleView" destination="ofh-Lc-HLf" id="3nh-MM-gt9"/>
@@ -401,7 +400,7 @@
                 <rect key="frame" x="0.0" y="0.0" width="1339" height="1010"/>
                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES" flexibleMaxY="YES"/>
                 <subviews>
-                    <splitView autosaveName="2splitView" dividerStyle="thin" vertical="YES" id="v7F-rw-MIY">
+                    <splitView autosaveName="2splitView" dividerStyle="thin" vertical="YES" id="v7F-rw-MIY" userLabel="Split Container">
                         <rect key="frame" x="0.0" y="32" width="1339" height="978"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
@@ -409,18 +408,18 @@
                                 <rect key="frame" x="0.0" y="0.0" width="391" height="978"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <subviews>
-                                    <webView identifier="mobile" appearanceType="lightContent" id="I5j-p8-iO4">
+                                    <webView identifier="mobile" id="I5j-p8-iO4">
                                         <rect key="frame" x="0.0" y="0.0" width="394" height="978"/>
                                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                         <webPreferences key="preferences" identifier="mobile" defaultFontSize="16" defaultFixedFontSize="13" minimumFontSize="0"/>
                                     </webView>
                                 </subviews>
                             </customView>
-                            <customView appearanceType="lightContent" id="SSx-od-Z5O">
+                            <customView appearanceType="aqua" id="SSx-od-Z5O">
                                 <rect key="frame" x="392" y="0.0" width="947" height="978"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <subviews>
-                                    <webView identifier="desktop" appearanceType="lightContent" id="sWb-iF-nUq">
+                                    <webView identifier="desktop" id="sWb-iF-nUq">
                                         <rect key="frame" x="0.0" y="0.0" width="947" height="978"/>
                                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                         <webPreferences key="preferences" identifier="desktop" defaultFontSize="16" defaultFixedFontSize="13" minimumFontSize="0"/>
@@ -433,7 +432,7 @@
                             <real value="250"/>
                         </holdingPriorities>
                     </splitView>
-                    <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" setsMaxLayoutWidthAtFirstLayout="YES" id="L55-Dz-Q86">
+                    <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" id="L55-Dz-Q86">
                         <rect key="frame" x="1296" y="7" width="38" height="17"/>
                         <autoresizingMask key="autoresizingMask" flexibleMinX="YES"/>
                         <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" title="Label" id="ySZ-Th-CaO">
@@ -493,7 +492,7 @@
                 <segmentedControl verticalHuggingPriority="750" id="sWo-61-v9q">
                     <rect key="frame" x="84" y="15" width="67" height="25"/>
                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
-                    <segmentedCell key="cell" alignment="left" style="texturedSquare" trackingMode="selectOne" id="AAB-da-SBp">
+                    <segmentedCell key="cell" borderStyle="border" alignment="left" style="texturedSquare" trackingMode="selectOne" id="AAB-da-SBp">
                         <font key="font" metaFont="system"/>
                         <segments>
                             <segment toolTip="Mobile and Desktop View" image="bottombar-browser-double-Template" width="32" selected="YES">
@@ -526,12 +525,12 @@
                 <popUpButton toolTip="Select a Breakpoint to Apply" verticalHuggingPriority="750" id="ddC-7P-C33">
                     <rect key="frame" x="173" y="15" width="128" height="25"/>
                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
-                    <popUpButtonCell key="cell" type="roundTextured" bezelStyle="texturedRounded" alignment="center" lineBreakMode="truncatingTail" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="m2S-GH-qvn">
+                    <popUpButtonCell key="cell" type="roundTextured" title="Breakpoints" bezelStyle="texturedRounded" alignment="center" lineBreakMode="truncatingTail" state="on" borderStyle="border" imageScaling="proportionallyDown" inset="2" selectedItem="9gt-ZU-u2f" id="m2S-GH-qvn">
                         <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
                         <font key="font" metaFont="menu"/>
                         <menu key="menu" title="OtherViews" id="iYa-c0-Aqy">
                             <items>
-                                <menuItem title="Breakpoints" id="9gt-ZU-u2f"/>
+                                <menuItem title="Breakpoints" state="on" id="9gt-ZU-u2f"/>
                                 <menuItem title="320" image="ipreview-iphone-large" tag="320" id="6tz-xg-2ci"/>
                                 <menuItem title="360" image="ipreview-iphone-large" tag="360" id="DnT-4e-S1G"/>
                                 <menuItem title="768" image="ipreview-ipad-large" tag="768" id="3RZ-XR-jCW">
@@ -583,12 +582,12 @@
                 <popUpButton verticalHuggingPriority="750" id="1Iw-rp-oOQ">
                     <rect key="frame" x="311" y="15" width="147" height="25"/>
                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
-                    <popUpButtonCell key="cell" type="roundTextured" bezelStyle="texturedRounded" alignment="center" lineBreakMode="truncatingTail" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="8xa-0K-L2N">
+                    <popUpButtonCell key="cell" type="roundTextured" bezelStyle="texturedRounded" alignment="center" lineBreakMode="truncatingTail" state="on" borderStyle="border" imageScaling="proportionallyDown" inset="2" selectedItem="kSG-hs-jru" id="8xa-0K-L2N">
                         <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
                         <font key="font" metaFont="menu"/>
                         <menu key="menu" title="OtherViews" id="POP-an-IWw">
                             <items>
-                                <menuItem id="kSG-hs-jru"/>
+                                <menuItem state="on" id="kSG-hs-jru"/>
                                 <menuItem title="Item 2" id="imo-oe-CHY"/>
                                 <menuItem title="Item 3" id="Dtx-5e-Bas"/>
                             </items>
@@ -601,7 +600,7 @@
                 <popUpButton id="OdE-ZP-ST6">
                     <rect key="frame" x="815" y="17" width="42" height="21"/>
                     <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMinY="YES"/>
-                    <popUpButtonCell key="cell" type="bevel" bezelStyle="rounded" alignment="left" lineBreakMode="truncatingTail" state="mixed" inset="2" pullsDown="YES" arrowPosition="noArrow" selectedItem="ayf-2l-THZ" id="acM-qZ-0ZR">
+                    <popUpButtonCell key="cell" type="bevel" bezelStyle="rounded" alignment="left" lineBreakMode="truncatingTail" state="mixed" inset="2" pullsDown="YES" arrowPosition="noArrow" id="acM-qZ-0ZR">
                         <behavior key="behavior" lightByBackground="YES" lightByGray="YES"/>
                         <font key="font" metaFont="menu"/>
                         <menu key="menu" title="OtherViews" id="XKj-nK-ZN3">
@@ -744,7 +743,7 @@ Gw
             </view>
             <contentBorderThickness minY="32"/>
         </window>
-        <window title="Two Preferences" allowsToolTipsWhenApplicationIsInactive="NO" autorecalculatesKeyViewLoop="NO" oneShot="NO" releasedWhenClosed="NO" wantsToBeColor="NO" visibleAtLaunch="NO" animationBehavior="default" id="cj6-hA-TVn">
+        <window title="Two Preferences" allowsToolTipsWhenApplicationIsInactive="NO" autorecalculatesKeyViewLoop="NO" oneShot="NO" releasedWhenClosed="NO" visibleAtLaunch="NO" animationBehavior="default" id="cj6-hA-TVn">
             <windowStyleMask key="styleMask" titled="YES" closable="YES"/>
             <windowPositionMask key="initialPositionMask" topStrut="YES"/>
             <rect key="contentRect" x="931" y="742" width="614" height="452"/>
@@ -774,7 +773,7 @@ Gw
                                                         <rect key="frame" x="0.0" y="0.0" width="574" height="347"/>
                                                         <autoresizingMask key="autoresizingMask"/>
                                                         <size key="intercellSpacing" width="3" height="2"/>
-                                                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                                        <color key="backgroundColor" name="controlBackgroundColor" catalog="System" colorSpace="catalog"/>
                                                         <color key="gridColor" name="gridColor" catalog="System" colorSpace="catalog"/>
                                                         <tableColumns>
                                                             <tableColumn identifier="name" width="116" minWidth="40" maxWidth="1000" id="vvd-Uv-ja3">
@@ -812,10 +811,10 @@ Gw
                                                 <color key="backgroundColor" name="controlBackgroundColor" catalog="System" colorSpace="catalog"/>
                                             </clipView>
                                             <scroller key="horizontalScroller" hidden="YES" verticalHuggingPriority="750" horizontal="YES" id="9oB-d4-f50">
-                                                <rect key="frame" x="1" y="117.47066390514374" width="236.83180999755859" height="16"/>
+                                                <rect key="frame" x="1" y="117.47066390514374" width="237" height="16"/>
                                                 <autoresizingMask key="autoresizingMask"/>
                                             </scroller>
-                                            <scroller key="verticalScroller" hidden="YES" verticalHuggingPriority="750" doubleValue="1" horizontal="NO" id="Ro0-ma-qqp">
+                                            <scroller key="verticalScroller" hidden="YES" verticalHuggingPriority="750" horizontal="NO" id="Ro0-ma-qqp">
                                                 <rect key="frame" x="224" y="17" width="15" height="102"/>
                                                 <autoresizingMask key="autoresizingMask"/>
                                             </scroller>
@@ -874,7 +873,7 @@ Gw
                                                         <rect key="frame" x="0.0" y="0.0" width="574" height="347"/>
                                                         <autoresizingMask key="autoresizingMask"/>
                                                         <size key="intercellSpacing" width="3" height="2"/>
-                                                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                                        <color key="backgroundColor" name="controlBackgroundColor" catalog="System" colorSpace="catalog"/>
                                                         <color key="gridColor" name="gridColor" catalog="System" colorSpace="catalog"/>
                                                         <tableColumns>
                                                             <tableColumn identifier="name" width="116" minWidth="40" maxWidth="1000" id="AU6-ar-GjR">
@@ -912,10 +911,10 @@ Gw
                                                 <color key="backgroundColor" name="controlBackgroundColor" catalog="System" colorSpace="catalog"/>
                                             </clipView>
                                             <scroller key="horizontalScroller" hidden="YES" verticalHuggingPriority="750" horizontal="YES" id="iCM-QD-Ny8">
-                                                <rect key="frame" x="1" y="117.47066390514374" width="236.83180999755859" height="16"/>
+                                                <rect key="frame" x="1" y="117.47066390514374" width="237" height="16"/>
                                                 <autoresizingMask key="autoresizingMask"/>
                                             </scroller>
-                                            <scroller key="verticalScroller" hidden="YES" verticalHuggingPriority="750" doubleValue="1" horizontal="NO" id="9ez-Wa-QzO">
+                                            <scroller key="verticalScroller" hidden="YES" verticalHuggingPriority="750" horizontal="NO" id="9ez-Wa-QzO">
                                                 <rect key="frame" x="224" y="17" width="15" height="102"/>
                                                 <autoresizingMask key="autoresizingMask"/>
                                             </scroller>
@@ -1006,7 +1005,7 @@ Gw
         </customObject>
     </objects>
     <resources>
-        <image name="NSShareTemplate" width="18" height="16"/>
+        <image name="NSShareTemplate" width="11" height="16"/>
         <image name="bottombar-browser-double-Template" width="13" height="10"/>
         <image name="bottombar-browser-single-Template" width="13" height="10"/>
         <image name="button-camera" width="20" height="15"/>

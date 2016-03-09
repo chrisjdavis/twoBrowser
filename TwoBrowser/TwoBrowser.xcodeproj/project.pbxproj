@@ -382,11 +382,10 @@
 		0DA5CDD718777A350084581D /* Project object */ = {
 			isa = PBXProject;
 			attributes = {
-				LastUpgradeCheck = 0510;
+				LastUpgradeCheck = 0720;
 				ORGANIZATIONNAME = LEAGUEOFBEARDS;
 				TargetAttributes = {
 					0DA5CDDE18777A350084581D = {
-						DevelopmentTeam = 4ZP9P6VDD5;
 						SystemCapabilities = {
 							com.apple.Sandbox = {
 								enabled = 1;
@@ -549,6 +548,7 @@
 				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
 				COPY_PHASE_STRIP = NO;
+				ENABLE_TESTABILITY = YES;
 				GCC_C_LANGUAGE_STANDARD = gnu99;
 				GCC_DYNAMIC_NO_PIC = NO;
 				GCC_ENABLE_OBJC_EXCEPTIONS = YES;
@@ -617,6 +617,7 @@
 				GCC_PREFIX_HEADER = "TwoBrowser/TwoBrowser-Prefix.pch";
 				INFOPLIST_FILE = "TwoBrowser/TwoBrowser-Info.plist";
 				MACOSX_DEPLOYMENT_TARGET = 10.8;
+				PRODUCT_BUNDLE_IDENTIFIER = "com.leagueofbeards${PRODUCT_NAME:rfc1034identifier}";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "";
 				WRAPPER_EXTENSION = app;
@@ -639,6 +640,7 @@
 				GCC_PREFIX_HEADER = "TwoBrowser/TwoBrowser-Prefix.pch";
 				INFOPLIST_FILE = "TwoBrowser/TwoBrowser-Info.plist";
 				MACOSX_DEPLOYMENT_TARGET = 10.8;
+				PRODUCT_BUNDLE_IDENTIFIER = "com.leagueofbeards${PRODUCT_NAME:rfc1034identifier}";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "";
 				WRAPPER_EXTENSION = app;
@@ -661,6 +663,7 @@
 					"$(inherited)",
 				);
 				INFOPLIST_FILE = "TwoBrowserTests/TwoBrowserTests-Info.plist";
+				PRODUCT_BUNDLE_IDENTIFIER = "com.leagueofbeards.${PRODUCT_NAME:rfc1034identifier}";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				TEST_HOST = "$(BUNDLE_LOADER)";
 				WRAPPER_EXTENSION = xctest;
@@ -679,6 +682,7 @@
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "TwoBrowser/TwoBrowser-Prefix.pch";
 				INFOPLIST_FILE = "TwoBrowserTests/TwoBrowserTests-Info.plist";
+				PRODUCT_BUNDLE_IDENTIFIER = "com.leagueofbeards.${PRODUCT_NAME:rfc1034identifier}";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				TEST_HOST = "$(BUNDLE_LOADER)";
 				WRAPPER_EXTENSION = xctest;

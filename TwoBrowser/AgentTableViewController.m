@@ -14,7 +14,6 @@
 - (id) init {
     self = [super init];
     if( self ) {
-        
         NSArray *path = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);
         NSString *documentFolder = [path objectAtIndex:0];
         NSString *filePath = [documentFolder stringByAppendingFormat:@"/agents.plist"];

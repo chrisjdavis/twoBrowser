@@ -2,9 +2,6 @@
 <Workspace
    version = "1.0">
    <FileRef
-      location = "group:../../../../../../Users/chrisjdavis/Downloads/OHHTTPStubs-master/OHHTTPStubs/OHHTTPStubs.xcodeproj">
-   </FileRef>
-   <FileRef
       location = "container:TwoBrowser.xcodeproj">
    </FileRef>
 </Workspace>

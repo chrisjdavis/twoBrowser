@@ -47,6 +47,7 @@
     NSString *ident = [tableColumn identifier];
     [bp setValue:object forKey:ident];
     
+    [breaksArray addObject:bp];
     [self saveBreaks];
 }
 

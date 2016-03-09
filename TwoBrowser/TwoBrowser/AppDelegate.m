@@ -158,8 +158,7 @@ NSArray *browsers = nil;
     }
 }
 
-- (void)applicationDidFinishLaunching:(NSNotification *)aNotification
-{
+- (void)applicationDidFinishLaunching:(NSNotification *)aNotification {
     [self setUpExternalBrowsers];
     // setup some cache defaults.
     int cacheSizeMemory = 4*1024*1024; // 4MB
@@ -402,7 +401,7 @@ NSArray *browsers = nil;
         rUrl = [NSURL URLWithString:urlString];
     }
     
-    if( [self contains:@"http://" on:urlString] == false ) {
+    if( [self contains:@"http://" on:urlString] == false && [self contains:@"https://" on:urlString] == false ) {
         NSString* modifiedURLString = [NSString stringWithFormat:@"http://%@", urlString];
         rUrl = [NSURL URLWithString:modifiedURLString];
     }
